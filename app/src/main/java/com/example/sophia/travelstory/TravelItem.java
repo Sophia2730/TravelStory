@@ -16,7 +16,6 @@ public class TravelItem {
         this.period = period;
     }
 
-
     public int getResId() {
         return resId;
     }

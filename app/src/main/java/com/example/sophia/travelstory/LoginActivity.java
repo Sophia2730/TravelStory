@@ -18,7 +18,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btn_register.setOnClickListener(this);
         btn_login.setOnClickListener(this);
-
     }
 
     @Override
@@ -30,10 +29,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent = new Intent(LoginActivity.this, MainTravelAdd.class);
                 startActivity(intent);
                 break;
         }
 
     }
+
+
 }

@@ -17,7 +17,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".MainTravelAdd"
+            android:label="@string/title_activity_main_travel_add"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CalenderAdd"
+            android:label="@string/title_activity_calender_add"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
