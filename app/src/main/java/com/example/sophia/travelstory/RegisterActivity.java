@@ -1,5 +1,6 @@
 package com.example.sophia.travelstory;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,6 +21,8 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText edt_email = (EditText) findViewById(R.id.edt_email);
         final EditText edt_passwd = (EditText) findViewById(R.id.edt_passwd);
 
+        final ContentValues values = new ContentValues();
+
         // DB에 데이터 추가
         Button btn_register = (Button) findViewById(R.id.btn_registeruser);
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -28,7 +31,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = edt_email.getText().toString();
                 String passwd = edt_passwd.getText().toString();
 
-                dbHelper.insert("USER", email, passwd);
+//                values.put("email", email);
+//                values.put("passwd", passwd);
+//                dbHelper.insert("USER", "NULL", values);
+
+                dbHelper.insert(email, passwd);
                 result.setText(dbHelper.getResult());
             }
         });

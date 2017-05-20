@@ -18,10 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
     // DB를 새로 생성할 때 호출되는 함수
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // 새로운 테이블 생성
-        /* 이름은 USER, 자동으로 값이 증가하는 _id 정수형 기본키 컬럼과
-        item 문자열 컬럼, price 정수형 컬럼, create_at 문자열 컬럼으로 구성된 테이블을 생성. */
-        db.execSQL("CREATE TABLE USER (_id INTEGER PRIMARY KEY AUTOINCREMENT, email VARCHAR(50), passwd VARCHAR(50));");
+        db.execSQL("CREATE TABLE USER (_id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, passwd TEXT);");
     }
 
     // DB 업그레이드를 위해 버전이 변경될 때 호출되는 함수
@@ -30,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insert(String table, String email, String passwd) {
+    public void insert(String email, String passwd) {
         // 읽고 쓰기가 가능하게 DB 열기
         SQLiteDatabase db = getWritableDatabase();
         // DB에 입력한 값으로 행 추가
@@ -57,9 +54,22 @@ public class DBHelper extends SQLiteOpenHelper {
                     + " : "
                     + cursor.getString(1)
                     + " 이메일 "
-                    + cursor.getInt(2)
+                    + cursor.getString(2)
                     + "비밀번호 \n";
         }
         return result;
+    }
+
+    public boolean accessLogin(String email, String passwd) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM USER", null);
+        String curName, curPwd;
+        while (cursor.moveToNext()) {
+            curName = cursor.getString(1);
+            curPwd = cursor.getString(2);
+            if (curName.equals(email) & curPwd.equals(passwd))
+                return true;
+        }
+        return false;
     }
 }
