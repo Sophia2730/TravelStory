@@ -16,10 +16,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ListView listView;
     MyAdapter adapter;
+    ArrayList<TravelItem> Plan = new ArrayList<TravelItem>();       //여행정보를 담아둘 ArrayList 생성)
 
-
-    //가수 앨범을 담을 리스트(SingerItem 객체를 담아둘 ArrayList 생성)
-    ArrayList<TravelItem> Plan = new ArrayList<TravelItem>();
 
 
     @Override
@@ -30,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
         //앨범(album) ArrayList에 데이터를 담는다.
         Plan.add(new TravelItem(R.drawable.travelstory_main_add, "정은지", "에이핑크"));
         Plan.add(new TravelItem(R.drawable.travelstory_main_add, "트와이스", "JYP엔터테인먼트"));
-        Plan.add(new TravelItem(R.drawable.travelstory_main_add, "하이라이트", "어라운드어스"));
-        Plan.add(new TravelItem(R.drawable.travelstory_main_add, "워너", "YG엔터테인먼트"));
-        Plan.add(new TravelItem(R.drawable.travelstory_main_add, "걸스데이", "드림티엔터테인먼트"));
 
         adapter = new MyAdapter(this, R.layout.travel_item, Plan);
             //listView 레이아웃 참조

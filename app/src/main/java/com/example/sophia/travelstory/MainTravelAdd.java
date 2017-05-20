@@ -14,6 +14,8 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
     final int REQUEST_TO = 1002;
     Button btn_datefrom, btn_dateto, btn_ok, btn_cancel;
     EditText edt_location;
+    int year, month, day;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +42,11 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(MainTravelAdd.this, CalenderAdd.class);
         switch (v.getId()){
             case R.id.btn_datefrom:
+                intent.putExtra("select", 1);
                 startActivityForResult(intent, REQUEST_FROM);
                 break;
             case R.id.btn_dateto:
+                intent.putExtra("select", 2);
                 startActivityForResult(intent, REQUEST_TO);
                 break;
             case R.id.btn_add_ok:
@@ -52,6 +56,13 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(this, "출발 날짜를 선택해주세요!", Toast.LENGTH_SHORT).show();
                 else if (btn_dateto.getText().toString().equals(""))
                     Toast.makeText(this, "도착 날짜를 선택해주세요!", Toast.LENGTH_SHORT).show();
+                else {
+                    intent = new Intent(MainTravelAdd.this, MainActivity.class);
+                    intent.putExtra("year", year);
+                    intent.putExtra("month", month);
+                    intent.putExtra("day", day);
+                    startActivity(intent);
+                }
                 break;
             case R.id.btn_add_cancel:
                 finish();
@@ -62,8 +73,6 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        int year, month, day;
-
         if (requestCode == REQUEST_FROM & resultCode == RESULT_OK){
             year = data.getIntExtra("year", 0);
             month = data.getIntExtra("month", 0);
@@ -74,6 +83,7 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
             btn_datefrom.setText(year+"/"+(month+1)+"/"+day+"");
         }
         else if (requestCode == REQUEST_TO & resultCode == RESULT_OK){
+//            if (btn_datefrom )
             year = data.getIntExtra("year", 0);
             month = data.getIntExtra("month", 0);
             day = data.getIntExtra("day", 0);
