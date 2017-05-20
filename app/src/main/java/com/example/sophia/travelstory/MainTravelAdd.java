@@ -56,7 +56,7 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(this, "출발 날짜를 선택해주세요!", Toast.LENGTH_SHORT).show();
                 else if (btn_dateto.getText().toString().equals(""))
                     Toast.makeText(this, "도착 날짜를 선택해주세요!", Toast.LENGTH_SHORT).show();
-                else {
+                else {      //여행 추가
                     intent = new Intent(MainTravelAdd.this, MainActivity.class);
                     intent.putExtra("year", year);
                     intent.putExtra("month", month);
@@ -83,15 +83,21 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
             btn_datefrom.setText(year+"/"+(month+1)+"/"+day+"");
         }
         else if (requestCode == REQUEST_TO & resultCode == RESULT_OK){
-//            if (btn_datefrom )
-            year = data.getIntExtra("year", 0);
-            month = data.getIntExtra("month", 0);
-            day = data.getIntExtra("day", 0);
+            if (year > data.getIntExtra("year", 0))
+                Toast.makeText(this, "날짜를 다시 설정해주세요!!", Toast.LENGTH_SHORT).show();
+            else if (month > data.getIntExtra("month", 0))
+                Toast.makeText(this, "날짜를 다시 설정해주세요!!", Toast.LENGTH_SHORT).show();
+            else if (day > data.getIntExtra("day", 0))
+                Toast.makeText(this, "날짜를 다시 설정해주세요!!", Toast.LENGTH_SHORT).show();
+            else {
+                year = data.getIntExtra("year", 0);
+                month = data.getIntExtra("month", 0);
+                day = data.getIntExtra("day", 0);
 
-            Toast.makeText(MainTravelAdd.this, "" + year + "/" + (month + 1) + "/"
-                    + day, Toast.LENGTH_LONG).show();
-            btn_dateto.setText(year+"/"+(month+1)+"/"+day+"");
-
+                Toast.makeText(MainTravelAdd.this, "" + year + "/" + (month + 1) + "/"
+                        + day, Toast.LENGTH_LONG).show();
+                btn_dateto.setText(year + "/" + (month + 1) + "/" + day + "");
+            }
         }
 
     }

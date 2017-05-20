@@ -1,4 +1,4 @@
-package com.example.sophia.travelstory;
+package com.example.sophia.travelstory.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sophia.travelstory.MainTravelAdd;
+import com.example.sophia.travelstory.R;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     Button btn_register, btn_login;
-    EditText edt_email, edt_passwd;
+    EditText edt_id, edt_passwd;
     TextView txtview;
 
     @Override
@@ -21,9 +24,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btn_register = (Button) findViewById(R.id.btn_register);
         btn_login = (Button) findViewById(R.id.btn_login);
-        edt_email = (EditText) findViewById(R.id.edt_email);
+        edt_id = (EditText) findViewById(R.id.edt_id);
         edt_passwd = (EditText) findViewById(R.id.edt_passwd);
-        txtview = (TextView) findViewById(R.id.result);
 
         btn_register.setOnClickListener(this);
         btn_login.setOnClickListener(this);
@@ -40,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                islogin = dbHelper.accessLogin(edt_email.getText().toString(), edt_passwd.getText().toString());
+                islogin = dbHelper.accessLogin(edt_id.getText().toString(), edt_passwd.getText().toString());
                 if (islogin) {
                     Toast.makeText(this, "SUCCESS", Toast.LENGTH_SHORT).show();
                     intent = new Intent(LoginActivity.this, MainTravelAdd.class);
