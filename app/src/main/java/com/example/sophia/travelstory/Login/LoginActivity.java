@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sophia.travelstory.MainTravelAdd;
 import com.example.sophia.travelstory.R;
@@ -42,13 +41,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                islogin = dbHelper.accessLogin(edt_id.getText().toString(), edt_passwd.getText().toString());
-                if (islogin) {
-                    Toast.makeText(this, "SUCCESS", Toast.LENGTH_SHORT).show();
+//                islogin = dbHelper.accessLogin(edt_id.getText().toString(), edt_passwd.getText().toString());
+//                if (islogin) {
+//                    Toast.makeText(this, "SUCCESS", Toast.LENGTH_SHORT).show();
                     intent = new Intent(LoginActivity.this, MainTravelAdd.class);
                     startActivity(intent);
-                } else
-                    Toast.makeText(this, "FAILED", Toast.LENGTH_SHORT).show();
+//                } else
+//                    Toast.makeText(this, "FAILED", Toast.LENGTH_SHORT).show();
 
                 break;
         }

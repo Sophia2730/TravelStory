@@ -73,6 +73,7 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        boolean overday =false;
         if (requestCode == REQUEST_FROM & resultCode == RESULT_OK){
             year = data.getIntExtra("year", 0);
             month = data.getIntExtra("month", 0);
@@ -83,13 +84,24 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
             btn_datefrom.setText(year+"/"+(month+1)+"/"+day+"");
         }
         else if (requestCode == REQUEST_TO & resultCode == RESULT_OK){
-            if (year > data.getIntExtra("year", 0))
+            if (year < data.getIntExtra("year", 0))
+                overday = true;
+            else if (year == data.getIntExtra("year", 0)) {
+                if (month < data.getIntExtra("month", 0))
+                    overday = true;
+                else if (month == data.getIntExtra("month", 0)) {
+                    if (day > data.getIntExtra("day", 0))
+                        Toast.makeText(this, "날짜를 다시 설정해주세요!!", Toast.LENGTH_SHORT).show();
+                    else
+                        overday = true;
+                }
+                else if (month > data.getIntExtra("month", 0))
+                    Toast.makeText(this, "날짜를 다시 설정해주세요!!", Toast.LENGTH_SHORT).show();
+            }
+            else if (year > data.getIntExtra("year", 0))
                 Toast.makeText(this, "날짜를 다시 설정해주세요!!", Toast.LENGTH_SHORT).show();
-            else if (month > data.getIntExtra("month", 0))
-                Toast.makeText(this, "날짜를 다시 설정해주세요!!", Toast.LENGTH_SHORT).show();
-            else if (day > data.getIntExtra("day", 0))
-                Toast.makeText(this, "날짜를 다시 설정해주세요!!", Toast.LENGTH_SHORT).show();
-            else {
+
+            if (overday){
                 year = data.getIntExtra("year", 0);
                 month = data.getIntExtra("month", 0);
                 day = data.getIntExtra("day", 0);
