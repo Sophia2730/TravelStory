@@ -1,6 +1,7 @@
 package com.example.sophia.travelstory;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,8 +18,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ListView listView;
     MyAdapter adapter;
+    String dateFrom, dateTo, location;
     ArrayList<TravelItem> Plan = new ArrayList<TravelItem>();       //여행정보를 담아둘 ArrayList 생성)
-
 
 
     @Override
@@ -27,10 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         //앨범(album) ArrayList에 데이터를 담는다.
         Plan.add(new TravelItem(R.drawable.travelstory_main_add, "정은지", "에이핑크"));
-        Plan.add(new TravelItem(R.drawable.travelstory_main_add, "트와이스", "JYP엔터테인먼트"));
 
         adapter = new MyAdapter(this, R.layout.travel_item, Plan);
-            //listView 레이아웃 참조
+        //listView 레이아웃 참조
         listView = (ListView) findViewById(R.id.listView);
 
         //어댑터 객체를 리스트 뷰에 설정
@@ -51,12 +52,40 @@ public class MainActivity extends AppCompatActivity {
 
                 //getName() 메서드를 이용하여 아이템에서 이름을 가져옴
                 String curName = curItem.getLocation();
-                 Toast.makeText(getApplicationContext(),
-                         "안녕하세요. " + curName + "입니다.",
-                         Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),
+                        "안녕하세요. " + curName + "입니다.",
+                        Toast.LENGTH_LONG).show();
+                Intent myintent = new Intent(MainActivity.this, DetailActivity.class);
+                startActivity(myintent);
+                finish();
             }
         });
+
+        Button addButton = (Button) findViewById(R.id.btn_traveladd);
+        addButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainTravelAdd.class);
+                startActivityForResult(intent, 2001);
+            }
+        });
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2001 & resultCode == 201) {
+            int count=adapter.getCount();
+            location = data.getStringExtra("location");
+            dateFrom = data.getStringExtra("datefrom");
+            dateTo = data.getStringExtra("dateto");
+
+            Plan.add(new TravelItem(R.drawable.travelstory_main_add, location, dateFrom + " ~ " + dateTo));
+
+            adapter.notifyDataSetChanged();
+        }
+    }
+
 
     //어댑터객체 클래스 선언(리스트뷰에 사용할 데이터를 관리하고, 각 아이템을 위한 뷰 객체를 생성)
     class MyAdapter extends BaseAdapter {
@@ -80,14 +109,14 @@ public class MainActivity extends AppCompatActivity {
            (itemsList의 크기(size) 반환) */
         @Override
         public int getCount() {
-             return Plan.size();
+            return Plan.size();
         }
 
         //파라미터로 전달된 인덱스에 해당하는 데이터를 반환
         @Override
         public Object getItem(int position) {
-			//리스트에서 아이템을 가져와 반환
-           return Plan.get(position);
+            //리스트에서 아이템을 가져와 반환
+            return Plan.get(position);
         }
 
         //현재 아이템의 Id값을 인덱스값(position)을 반환
@@ -111,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             //아이템을 위한 레이아웃 생성
             TravelLayout travelLayout = null;
 
-		    // 리스트뷰에서 아이템을 재사용할 수 있도록 singerLayout을 처리
+            // 리스트뷰에서 아이템을 재사용할 수 있도록 singerLayout을 처리
 
             if (convertView == null)
                 travelLayout = new TravelLayout(mContext);

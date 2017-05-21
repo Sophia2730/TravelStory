@@ -2,4 +2,7 @@
     <string name="app_name">TravelStory</string>
     <string name="title_activity_main_travel_add">MainTravelAdd</string>
     <string name="title_activity_calender_add">CalenderAdd</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_recode">Recode</string>
+    <string name="title_album">Album</string>
 </resources>

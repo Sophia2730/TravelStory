@@ -25,7 +25,10 @@
         <activity
             android:name=".CalenderAdd"
             android:label="@string/title_activity_calender_add"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/title_activity_detail"></activity>
     </application>
 
 </manifest>

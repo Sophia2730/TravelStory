@@ -58,10 +58,11 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(this, "도착 날짜를 선택해주세요!", Toast.LENGTH_SHORT).show();
                 else {      //여행 추가
                     intent = new Intent(MainTravelAdd.this, MainActivity.class);
-                    intent.putExtra("year", year);
-                    intent.putExtra("month", month);
-                    intent.putExtra("day", day);
-                    startActivity(intent);
+                    intent.putExtra("location", edt_location.getText().toString());
+                    intent.putExtra("datefrom", btn_datefrom.getText().toString());
+                    intent.putExtra("dateto", btn_dateto.getText().toString());
+                    setResult(201, intent);
+                    finish();
                 }
                 break;
             case R.id.btn_add_cancel:
@@ -111,6 +112,5 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
                 btn_dateto.setText(year + "/" + (month + 1) + "/" + day + "");
             }
         }
-
     }
 }

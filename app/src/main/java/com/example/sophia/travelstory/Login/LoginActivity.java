@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.sophia.travelstory.MainTravelAdd;
+import com.example.sophia.travelstory.MainActivity;
 import com.example.sophia.travelstory.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,8 +44,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //                islogin = dbHelper.accessLogin(edt_id.getText().toString(), edt_passwd.getText().toString());
 //                if (islogin) {
 //                    Toast.makeText(this, "SUCCESS", Toast.LENGTH_SHORT).show();
-                    intent = new Intent(LoginActivity.this, MainTravelAdd.class);
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
 //                } else
 //                    Toast.makeText(this, "FAILED", Toast.LENGTH_SHORT).show();
 
