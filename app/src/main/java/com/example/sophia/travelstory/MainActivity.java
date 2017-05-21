@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.sophia.travelstory.Detail.DetailActivity;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {

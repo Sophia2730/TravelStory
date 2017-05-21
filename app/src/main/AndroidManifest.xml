@@ -27,8 +27,8 @@
             android:label="@string/title_activity_calender_add"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".DetailActivity"
-            android:label="@string/title_activity_detail"></activity>
+            android:name=".Detail.DetailActivity"
+            android:label="@string/title_activity_detail" />
     </application>
 
 </manifest>
