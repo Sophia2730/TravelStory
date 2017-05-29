@@ -1,18 +1,20 @@
 package com.example.sophia.travelstory.Detail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,7 +23,7 @@ import com.example.sophia.travelstory.R;
 
 import java.util.ArrayList;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends ActionBarActivity {
 
     RecodeFragment recodeFragment;
     AlbumFragment albumFragment;
@@ -36,11 +38,26 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        View customView = getLayoutInflater().inflate(R.layout.custom_title, null);
+        getSupportActionBar().setCustomView(customView);
+
+
         recodeFragment = new RecodeFragment();
         albumFragment = new AlbumFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, recodeFragment).commit();
-//        final ArrayAdapter recodeadapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Recode) ;
 
+        ImageButton btn_location = (ImageButton) findViewById(R.id.btn_location);
+        btn_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myintent = new Intent(DetailActivity.this, CurrentLocation.class);
+                startActivity(myintent);
+            }
+        });
+        
         bottomNavigation = (BottomNavigationView) findViewById(R.id.navigation);
         final FragmentManager fragmentManager = getSupportFragmentManager();
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
