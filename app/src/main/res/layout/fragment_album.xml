@@ -1,5 +1,7 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/albumFrag"
+    android:name="com.example.sophia.travelstory.Detail.AlbumFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sophia.travelstory.Detail.AlbumFragment">
@@ -8,6 +10,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Album Fragment" />
+        android:text="Album Linear" />
 
-</FrameLayout>
+</LinearLayout>

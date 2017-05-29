@@ -1,9 +1,11 @@
 package com.example.sophia.travelstory;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import com.example.sophia.travelstory.Detail.DetailActivity;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
     ListView listView;
     MyAdapter adapter;
     String dateFrom, dateTo, location;
@@ -38,6 +40,45 @@ public class MainActivity extends AppCompatActivity {
 
         //어댑터 객체를 리스트 뷰에 설정
         listView.setAdapter(adapter);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        MainActivity.this);
+                // 제목셋팅
+                alertDialogBuilder.setTitle("여행 삭제");
+
+                // AlertDialog 셋팅
+                alertDialogBuilder
+                        .setMessage("여행을 삭제하시겠습니까?")
+                        .setCancelable(false)
+                        .setPositiveButton("삭제",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog, int id) {
+                                        //delete 해당 데이터
+                                        Toast.makeText(MainActivity.this, "삭제", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                        .setNegativeButton("취소",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialog, int id) {
+                                        // 다이얼로그를 취소한다
+                                        Toast.makeText(MainActivity.this, "취소", Toast.LENGTH_SHORT).show();
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // 다이얼로그 생성
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // 다이얼로그 보여주기
+                alertDialog.show();
+                return true;
+            }
+        });
 
         //리스트뷰에서 아이템 클릭시 이벤트 처리
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,8 +104,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         Button addButton = (Button) findViewById(R.id.btn_traveladd);
-        addButton.setOnClickListener(new Button.OnClickListener() {
+        addButton.setOnClickListener(new Button.OnClickListener()
+
+        {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, MainTravelAdd.class);
                 startActivityForResult(intent, 2001);
@@ -77,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2001 & resultCode == 201) {
-            int count=adapter.getCount();
+            int count = adapter.getCount();
             location = data.getStringExtra("location");
             dateFrom = data.getStringExtra("datefrom");
             dateTo = data.getStringExtra("dateto");

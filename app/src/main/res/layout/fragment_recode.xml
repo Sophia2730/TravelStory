@@ -1,13 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recodeFrag"
+    android:name="com.example.sophia.travelstory.Detail.RecodeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sophia.travelstory.Detail.RecodeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="recode"/>
+    <ListView
+        android:id="@+id/recodelistview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="recode Fragment" />
+        android:layout_margin="8dp"
+        android:dividerHeight="1dp"
+        android:listSelector="#FFE1E1E5" />
 
-</FrameLayout>
+</LinearLayout>

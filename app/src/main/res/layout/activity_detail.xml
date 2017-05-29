@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="?android:attr/windowBackground"
+        app:layout_behavior="tech.thdev.app.view.BottomNavigationBehavior"
         app:menu="@menu/navigation" />
 
 </LinearLayout>
