@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.sophia.travelstory.Detail.DetailActivity;
+import com.example.sophia.travelstory.Detail.DetailDBHelper;
 
 import java.util.ArrayList;
 
@@ -23,16 +26,24 @@ public class MainActivity extends Activity {
     ListView listView;
     MyAdapter adapter;
     String dateFrom, dateTo, location;
-    ArrayList<TravelItem> Plan = new ArrayList<TravelItem>();       //여행정보를 담아둘 ArrayList 생성)
+    ArrayList<TravelItem> Plan = new ArrayList<TravelItem>();       //여행정보를 담아둘 ArrayList 생성
+    DetailDBHelper dbHelper;
+    SQLiteDatabase database;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dbHelper = new DetailDBHelper(getApplicationContext(), "TRAVEL.db", null, 1);
 
-        //앨범(album) ArrayList에 데이터를 담는다.
-        Plan.add(new TravelItem(R.drawable.travelstory_main_add, "정은지", "에이핑크"));
+        if (dbHelper != null) {
+            database = dbHelper.getReadableDatabase();
+            Cursor cursor = database.rawQuery("SELECT * FROM TRAVEL", null);
+            while (cursor.moveToNext()) {
+                Plan.add(new TravelItem(R.drawable.travelstory_main_add, cursor.getString(1), cursor.getString(2) + "~" + cursor.getString(3)));
+            }
+        }
 
         adapter = new MyAdapter(this, R.layout.travel_item, Plan);
         //listView 레이아웃 참조
@@ -43,7 +54,7 @@ public class MainActivity extends Activity {
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                         MainActivity.this);
                 // 제목셋팅
@@ -57,8 +68,14 @@ public class MainActivity extends Activity {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(
                                             DialogInterface dialog, int id) {
-                                        //delete 해당 데이터
-                                        Toast.makeText(MainActivity.this, "삭제", Toast.LENGTH_SHORT).show();
+                                        //장소를 받아옴
+                                        TravelItem curItem = (TravelItem) adapter.getItem(position);
+                                        String curName = curItem.getLocation();
+
+                                        //받아온 장소를 조건으로 삼아 delete해줌
+                                        Plan.remove(position);
+                                        dbHelper.deleteTravel(curName);
+                                        adapter.notifyDataSetChanged();
                                     }
                                 })
                         .setNegativeButton("취소",
@@ -66,7 +83,6 @@ public class MainActivity extends Activity {
                                     public void onClick(
                                             DialogInterface dialog, int id) {
                                         // 다이얼로그를 취소한다
-                                        Toast.makeText(MainActivity.this, "취소", Toast.LENGTH_SHORT).show();
                                         dialog.cancel();
                                     }
                                 });
@@ -100,10 +116,8 @@ public class MainActivity extends Activity {
                         Toast.LENGTH_LONG).show();
                 Intent myintent = new Intent(MainActivity.this, DetailActivity.class);
                 startActivity(myintent);
-                finish();
             }
         });
-
 
         Button addButton = (Button) findViewById(R.id.btn_traveladd);
         addButton.setOnClickListener(new Button.OnClickListener()
@@ -114,24 +128,18 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, 2001);
             }
         });
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2001 & resultCode == 201) {
-            int count = adapter.getCount();
-            location = data.getStringExtra("location");
-            dateFrom = data.getStringExtra("datefrom");
-            dateTo = data.getStringExtra("dateto");
-
-            Plan.add(new TravelItem(R.drawable.travelstory_main_add, location, dateFrom + " ~ " + dateTo));
-
+            Cursor cursor = database.rawQuery("SELECT * FROM TRAVEL", null);
+            cursor.moveToLast();
+            Plan.add(new TravelItem(R.drawable.travelstory_main_add, cursor.getString(1), cursor.getString(2) + "~" + cursor.getString(3)));
             adapter.notifyDataSetChanged();
         }
     }
-
 
     //어댑터객체 클래스 선언(리스트뷰에 사용할 데이터를 관리하고, 각 아이템을 위한 뷰 객체를 생성)
     class MyAdapter extends BaseAdapter {

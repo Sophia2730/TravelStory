@@ -1,26 +1,31 @@
 package com.example.sophia.travelstory;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainTravelAdd extends AppCompatActivity implements View.OnClickListener {
+import com.example.sophia.travelstory.Detail.DetailDBHelper;
+
+public class MainTravelAdd extends Activity implements View.OnClickListener {
     final int REQUEST_FROM = 1001;
     final int REQUEST_TO = 1002;
     Button btn_datefrom, btn_dateto, btn_ok, btn_cancel;
     EditText edt_location;
     int year, month, day;
+    DetailDBHelper dbHelper;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_add);
+
+        dbHelper = new DetailDBHelper(getApplicationContext(), "TRAVEL.db", null, 1);
 
         edt_location = (EditText) findViewById(R.id.edt_location);
         btn_datefrom = (Button) findViewById(R.id.btn_datefrom);
@@ -61,6 +66,8 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
                     intent.putExtra("location", edt_location.getText().toString());
                     intent.putExtra("datefrom", btn_datefrom.getText().toString());
                     intent.putExtra("dateto", btn_dateto.getText().toString());
+
+                    dbHelper.insertTravel(edt_location.getText().toString(), btn_datefrom.getText().toString(), btn_dateto.getText().toString());
                     setResult(201, intent);
                     finish();
                 }
@@ -107,8 +114,6 @@ public class MainTravelAdd extends AppCompatActivity implements View.OnClickList
                 month = data.getIntExtra("month", 0);
                 day = data.getIntExtra("day", 0);
 
-                Toast.makeText(MainTravelAdd.this, "" + year + "/" + (month + 1) + "/"
-                        + day, Toast.LENGTH_LONG).show();
                 btn_dateto.setText(year + "/" + (month + 1) + "/" + day + "");
             }
         }

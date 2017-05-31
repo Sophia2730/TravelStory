@@ -2,6 +2,7 @@ package com.example.sophia.travelstory.Detail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 public class DetailActivity extends ActionBarActivity {
 
     RecodeFragment recodeFragment;
-    AlbumFragment albumFragment;
+    DocumentFragment documentFragment;
     Fragment fragment;
     BottomNavigationView bottomNavigation;
     ListView listView;
@@ -46,7 +47,7 @@ public class DetailActivity extends ActionBarActivity {
 
 
         recodeFragment = new RecodeFragment();
-        albumFragment = new AlbumFragment();
+        documentFragment = new DocumentFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.container, recodeFragment).commit();
 
         ImageButton btn_location = (ImageButton) findViewById(R.id.btn_location);
@@ -57,7 +58,7 @@ public class DetailActivity extends ActionBarActivity {
                 startActivity(myintent);
             }
         });
-        
+
         bottomNavigation = (BottomNavigationView) findViewById(R.id.navigation);
         final FragmentManager fragmentManager = getSupportFragmentManager();
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,19 +67,13 @@ public class DetailActivity extends ActionBarActivity {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.navigation_recode:
-
                         fragment = new RecodeFragment();
                         Recode.add(new RecodeItem(R.drawable.travelstory_main_addimg, "홍콩", "170310~170311", "playtime"));
                         recodeAdapter = new RecodeAdapter(getApplicationContext(), R.layout.recode_item, Recode);
 
-                        //listView 레이아웃 참조
-                        listView = (ListView) findViewById(R.id.listView);
-
-                        //어댑터 객체를 리스트 뷰에 설정
-//                        listView.setAdapter(recodeAdapter);
                         break;
-                    case R.id.navigation_album:
-                        fragment = new AlbumFragment();
+                    case R.id.navigation_document:
+                        fragment = new DocumentFragment();
                         break;
                 }
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -88,7 +83,16 @@ public class DetailActivity extends ActionBarActivity {
         });
     }
 
-    class RecodeAdapter extends BaseAdapter {
+    public void onItemSelected(int img, String name, String company, String song) { //아이템 선택시 실행되는 함수
+
+        //임시실행페이지
+        DocumentFragment cur = new DocumentFragment();
+        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {    //세로화면 에서 눌럿을 경우
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, cur).commit();    //mainFrame에 상세정보 화면을 띄워줌
+        }
+    }
+
+    static class RecodeAdapter extends BaseAdapter {
         Context mContext;
         int recode_item;
         ArrayList<RecodeItem> Recode;

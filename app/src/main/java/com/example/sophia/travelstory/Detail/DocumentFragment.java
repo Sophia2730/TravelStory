@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 
 import com.example.sophia.travelstory.R;
 
-public class AlbumFragment extends Fragment {
+public class DocumentFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_album, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_document, container, false);
 
         return rootView;
     }

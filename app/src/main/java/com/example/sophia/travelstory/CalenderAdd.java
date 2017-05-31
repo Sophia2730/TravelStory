@@ -1,11 +1,11 @@
 package com.example.sophia.travelstory;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.CalendarView;
 
-public class CalenderAdd extends AppCompatActivity {
+public class CalenderAdd extends Activity {
     CalendarView calendarView;
     Intent calIntent;
     @Override
