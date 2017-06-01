@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
@@ -22,6 +23,10 @@ public class RecodeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recode, container, false);
+
+        String curLocation = getArguments().getString("curLocation");
+        Toast.makeText(getActivity(), curLocation + "", Toast.LENGTH_SHORT).show();
+
 
         Recode.add(new RecodeItem(R.drawable.ic_recode, "정은지", "에이핑크", "너란 봄"));
         Recode.add(new RecodeItem(R.drawable.ic_recode, "트와이스", "JYP엔터테인먼트", "KNOCK KNOCK"));

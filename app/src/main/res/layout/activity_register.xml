@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="85dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
         android:drawableStart="@drawable/ic_perm_identity_black_24dp"
         android:ems="10"
@@ -75,12 +75,12 @@
         app:layout_constraintLeft_toLeftOf="@+id/edt_name"
         app:layout_constraintTop_toBottomOf="@+id/edt_passwd2" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_registeruser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:src="@drawable/travelstory_register_add"
+        android:layout_width="210dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:text="가입하기"
         app:layout_constraintLeft_toLeftOf="@+id/edt_name"
         app:layout_constraintTop_toBottomOf="@+id/edt_email" />
 
@@ -88,10 +88,10 @@
         android:id="@+id/btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="-68dp"
         android:layout_marginTop="8dp"
-        android:text="지우기"
+        android:text="임시적으로 디비 지우기"
         app:layout_constraintRight_toRightOf="@+id/edt_name"
-        app:layout_constraintTop_toBottomOf="@+id/edt_email" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_registeruser" />
 
 </android.support.constraint.ConstraintLayout>

@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.sophia.travelstory.Detail.DetailActivity;
 import com.example.sophia.travelstory.Detail.DetailDBHelper;
@@ -110,16 +110,14 @@ public class MainActivity extends Activity {
                 TravelItem curItem = (TravelItem) adapter.getItem(position);
 
                 //getName() 메서드를 이용하여 아이템에서 이름을 가져옴
-                String curName = curItem.getLocation();
-                Toast.makeText(getApplicationContext(),
-                        "안녕하세요. " + curName + "입니다.",
-                        Toast.LENGTH_LONG).show();
+                String curLocation = curItem.getLocation();
                 Intent myintent = new Intent(MainActivity.this, DetailActivity.class);
+                myintent.putExtra("curLocation", curLocation);
                 startActivity(myintent);
             }
         });
 
-        Button addButton = (Button) findViewById(R.id.btn_traveladd);
+        ImageButton addButton = (ImageButton) findViewById(R.id.btn_traveladd);
         addButton.setOnClickListener(new Button.OnClickListener()
 
         {

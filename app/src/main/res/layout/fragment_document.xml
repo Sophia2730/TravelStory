@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.sophia.travelstory.Detail.DocumentFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Document Linear" />
+    <ListView
+        android:id="@+id/documentlistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:dividerHeight="1dp"
+        android:listSelector="#FFE1E1E5" />
 
 </LinearLayout>

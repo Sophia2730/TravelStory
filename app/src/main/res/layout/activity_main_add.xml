@@ -14,6 +14,7 @@
         android:layout_width="368dp"
         android:layout_height="220dp"
         android:layout_margin="16dp"
+        android:src="@drawable/travelstory_main_addimg"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

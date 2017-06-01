@@ -1,16 +1,17 @@
 package com.example.sophia.travelstory.Login;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
         final ContentValues values = new ContentValues();
 
         // DB에 데이터 추가
-        Button btn_register = (Button) findViewById(R.id.btn_registeruser);
+        ImageButton btn_register = (ImageButton) findViewById(R.id.btn_registeruser);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
                 else if (!passwd.equals(passwdCheck))
                     Toast.makeText(RegisterActivity.this, "비밀번호가 서로 맞지 않습니다!!", Toast.LENGTH_SHORT).show();
                 else {
+                    /*아이디가 같으면 안만들어지는 코드 구현!!!!!!!!!*/
                     dbHelper.insert(name, id, passwd, email);
                     Toast.makeText(RegisterActivity.this, "회원가입 완료!", Toast.LENGTH_SHORT).show();
                     finish();

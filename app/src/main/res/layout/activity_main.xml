@@ -8,14 +8,12 @@
     android:orientation="vertical"
     tools:context="com.example.sophia.travelstory.MainActivity">
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_traveladd"
+        android:src="@drawable/travelstory_register_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="#CCCCCC"
-        android:text="여행 추가하기"
-        android:textStyle="bold" />
+        android:layout_margin="10dp"/>
 
     <ListView
         android:id="@+id/listView"
