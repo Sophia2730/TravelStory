@@ -2,7 +2,7 @@ package com.example.sophia.travelstory.Detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -16,9 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
@@ -30,11 +29,11 @@ public class DetailActivity extends ActionBarActivity {
     DocumentFragment documentFragment;
     Fragment fragment;
     BottomNavigationView bottomNavigation;
-    ListView listView;
-    RecodeAdapter recodeAdapter;
-    ArrayList<RecodeItem> Recode = new ArrayList<RecodeItem>();
     String curLocation;
     Bundle bundle;
+    DetailDBHelper dbHelper;
+    SQLiteDatabase database;
+    ArrayList<DocumentItem> Document = new ArrayList<DocumentItem>();
     static int currentView = 1;    //현재 보여지는 뷰 확인
 
     @Override
@@ -42,14 +41,16 @@ public class DetailActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        //타이틀바 설정
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         View customView = getLayoutInflater().inflate(R.layout.custom_title, null);
         getSupportActionBar().setCustomView(customView);
 
-        Intent myintent = getIntent();
-        curLocation = myintent.getStringExtra("curLocation");
+
+        Intent getintent = getIntent();
+        curLocation = getintent.getStringExtra("curLocation");
         bundle = new Bundle();
         bundle.putString("curLocation", curLocation);
 
@@ -58,16 +59,19 @@ public class DetailActivity extends ActionBarActivity {
         recodeFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, recodeFragment).commit();
 
+        //Tab에서 추가버튼을 누를 때
         ImageButton btn_add = (ImageButton) findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (currentView == 1) {   //Recode 화면이 띄워져 있으면
                     Intent intent = new Intent(DetailActivity.this, RecodeAdd.class);
-                    startActivity(intent);
+                    intent.putExtra("curLocation", curLocation);
+                    startActivityForResult(intent, 1001);
                 } else {        //Document화면이 띄워져 있으면
                     Intent intent = new Intent(DetailActivity.this, DocumentAdd.class);
-                    startActivity(intent);
+                    intent.putExtra("curLocation", curLocation);
+                    startActivityForResult(intent, 1001);
                 }
             }
         });
@@ -81,7 +85,7 @@ public class DetailActivity extends ActionBarActivity {
             }
         });
 
-
+        //아래 탭 눌럿을 경우
         bottomNavigation = (BottomNavigationView) findViewById(R.id.navigation);
         final FragmentManager fragmentManager = getSupportFragmentManager();
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -108,25 +112,30 @@ public class DetailActivity extends ActionBarActivity {
         });
     }
 
-    public void onItemSelected(int img, String name, String company, String song) { //아이템 선택시 실행되는 함수
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001 & resultCode == 100) { //recodeAdd에서 넘어왓을 경우
 
-        //임시실행페이지
-        DocumentFragment cur = new DocumentFragment();
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {    //세로화면 에서 눌럿을 경우
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, cur).commit();    //mainFrame에 상세정보 화면을 띄워줌
+        } else if (requestCode == 1001 & resultCode == 200) {    //DocumentAdd에서 넘어왓을 경우
+            Toast.makeText(this, "값을 받아왓다 드디어!!!!!", Toast.LENGTH_SHORT).show();
+            bundle.putInt("resultCode", 200);
         }
     }
+
+//    public void onItemSelected(int img, String name, String company, String song) { //아이템 선택시 실행되는 함수
+//        //임시실행페이지
+//        DocumentFragment cur = new DocumentFragment();
+//        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {    //세로화면 에서 눌럿을 경우
+//            getSupportFragmentManager().beginTransaction().replace(R.id.container, cur).commit();    //mainFrame에 상세정보 화면을 띄워줌
+//        }
+//    }
 
     static class RecodeAdapter extends BaseAdapter {
         Context mContext;
         int recode_item;
         ArrayList<RecodeItem> Recode;
         LayoutInflater inflater;
-
-        ImageView imageView;
-        TextView nameTextView;
-        TextView dateTextView;
-        TextView timeTextView;
 
         public RecodeAdapter(Context context, int recode_item, ArrayList<RecodeItem> Recode) {
             mContext = context;

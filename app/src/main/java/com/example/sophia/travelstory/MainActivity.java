@@ -44,12 +44,8 @@ public class MainActivity extends Activity {
                 Plan.add(new TravelItem(R.drawable.travelstory_main_add, cursor.getString(1), cursor.getString(2) + "~" + cursor.getString(3)));
             }
         }
-
         adapter = new MyAdapter(this, R.layout.travel_item, Plan);
-        //listView 레이아웃 참조
         listView = (ListView) findViewById(R.id.listView);
-
-        //어댑터 객체를 리스트 뷰에 설정
         listView.setAdapter(adapter);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

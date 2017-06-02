@@ -50,8 +50,8 @@ public class RecodeFragment extends Fragment {
 //                //getName() 메서드를 이용하여 아이템에서 이름을 가져옴
 //                String curName = curItem.getName();
 
-                ((DetailActivity) getActivity()).onItemSelected(Recode.get(position).resId, Recode.get(position).name,
-                        Recode.get(position).date, Recode.get(position).time);
+//                ((DetailActivity) getActivity()).onItemSelected(Recode.get(position).resId, Recode.get(position).name,
+//                        Recode.get(position).date, Recode.get(position).time);
             }
         });//end of setOnItemClickListener
 

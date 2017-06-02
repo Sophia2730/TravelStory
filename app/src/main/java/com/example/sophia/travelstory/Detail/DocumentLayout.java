@@ -53,8 +53,8 @@ public class DocumentLayout extends LinearLayout {
 		monthTextView.setText(month);
 	}
 
-	public void setDate(String date) {//소속 설정
-		dateTextView.setText(date);
+	public void setDate(int date) {//소속 설정
+		dateTextView.setText(date + "");
 	}
 
 	public void setContent(String content) {//노래 설정

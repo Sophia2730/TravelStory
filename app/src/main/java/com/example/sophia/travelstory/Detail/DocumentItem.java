@@ -6,21 +6,21 @@ package com.example.sophia.travelstory.Detail;
 
 public class DocumentItem {
     String month;//날짜
-    String date;
+    int date;
     String content;//시간
 
     //생성자
-    public DocumentItem(String month, String date, String content) {
+    public DocumentItem(String month, int date, String content) {
         this.month = month;
         this.date = date;
         this.content = content;
     }
 
-    public String getDate() {
+    public int getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(int date) {
         this.date = date;
     }
 

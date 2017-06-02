@@ -16,8 +16,8 @@ public class DetailDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE TRAVEL (_id INTEGER PRIMARY KEY AUTOINCREMENT, location TEXT, datefrom TEXT, dateto TEXT);");
-        db.execSQL("CREATE TABLE RECODE (_id INTEGER PRIMARY KEY, name TEXT, date TEXT, time TEXT);");
-        db.execSQL("CREATE TABLE DOCUMENT (_id INTEGER PRIMARY KEY, date TEXT, content VARCHAR(50));");
+        db.execSQL("CREATE TABLE DOCUMENT (location TEXT, month TEXT, date INTEGER, content VARCHAR(100));");
+        db.execSQL("CREATE TABLE RECODE (location TEXT PRIMARY KEY, name TEXT, date TEXT, time TEXT, path TEXT);");
     }
 
     @Override
@@ -36,6 +36,30 @@ public class DetailDBHelper extends SQLiteOpenHelper {
     public void deleteTravel(String where) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM TRAVEL WHERE location = '" + where + "';");
+        db.close();
+    }
+
+    public void insertDocument(String location, String month, int date, String content) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO DOCUMENT VALUES('" + location + "', '" + month + "', '" + date + "', '" + content + "');");
+        db.close();
+    }
+
+    public void deleteDocument(String where) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM DOCUMENT WHERE location = '" + where + "';");
+        db.close();
+    }
+
+    public void insertRecode(String location, String name, String date, String time, String path) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO RECODE VALUES('" + location + "', '" + name + "', '" + date + "', '" + time + "', '" + path + "');");
+        db.close();
+    }
+
+    public void deleteRecode(String where) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM RECODE WHERE location = '" + where + "';");
         db.close();
     }
 }
