@@ -64,17 +64,16 @@ public class DocumentFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {        //삭제 수정시 실행되는 메소드
+    public void onStart() {        //삭제시 실행되는 메소드
         super.onStart();
         Bundle bundle = getArguments();
-        Toast.makeText(getActivity(), bundle.getInt("resultCode") + "", Toast.LENGTH_SHORT).show();
-        if (bundle.getInt("resultCode") == 200 ) {      //detailadd
-            isclicked = true;
-            Toast.makeText(getActivity(), "isclicked : " + isclicked, Toast.LENGTH_SHORT).show();
+        int resultCode = bundle.getInt("resultCode");
+
+        if (resultCode == 200 ) {      //detailadd
             Cursor cursor = database.rawQuery("SELECT * FROM DOCUMENT", null);
             cursor.moveToLast();
             Document.add(new DocumentItem((cursor.getString(1)).substring(0, 3), cursor.getInt(2), cursor.getString(3)));
-        } else if (bundle.getInt("resultCode") == 201) {                    //detail
+        } else if (resultCode == 201) {                    //detaildelete
             Toast.makeText(getContext(), "" + bundle.getInt("position"), Toast.LENGTH_SHORT).show();
             Document.remove(bundle.getInt("position"));
         }

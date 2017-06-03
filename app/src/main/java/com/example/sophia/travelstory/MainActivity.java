@@ -44,6 +44,9 @@ public class MainActivity extends Activity {
                 Plan.add(new TravelItem(R.drawable.travelstory_main_add, cursor.getString(1), cursor.getString(2) + "~" + cursor.getString(3)));
             }
         }
+
+        Plan.add(new TravelItem(R.drawable.travelstory_main_add, "EX", "123123" + "~" + "456456"));
+
         adapter = new MyAdapter(this, R.layout.travel_item, Plan);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);

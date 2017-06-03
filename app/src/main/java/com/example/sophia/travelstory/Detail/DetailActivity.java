@@ -125,6 +125,10 @@ public class DetailActivity extends ActionBarActivity {
             bundle.putInt("resultCode", resultCode);
             bundle.putInt("position", position);
         }
+//        else if (requestCode == 1001 & resultCode == 202) {      //DocumentDetail에서 넘어왔을 경우
+//            bundle.putInt("resultCode", resultCode);
+//            bundle.putInt("position", position);
+//        }
     }
 
     public void onDocuItemSelected(int position, String month, int date, String content) {
@@ -135,14 +139,6 @@ public class DetailActivity extends ActionBarActivity {
         this.position = position;
         startActivityForResult(intent, 1001);
     }
-
-//    public void onItemSelected(int img, String name, String company, String song) { //아이템 선택시 실행되는 함수
-//        //임시실행페이지
-//        DocumentFragment cur = new DocumentFragment();
-//        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {    //세로화면 에서 눌럿을 경우
-//            getSupportFragmentManager().beginTransaction().replace(R.id.container, cur).commit();    //mainFrame에 상세정보 화면을 띄워줌
-//        }
-//    }
 
     static class RecodeAdapter extends BaseAdapter {
         Context mContext;
@@ -250,6 +246,3 @@ public class DetailActivity extends ActionBarActivity {
         }
     }
 }
-
-
-

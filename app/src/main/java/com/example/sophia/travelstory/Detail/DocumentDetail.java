@@ -28,7 +28,6 @@ public class DocumentDetail extends Activity implements AdapterView.OnItemSelect
 
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
-
         item = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
@@ -46,6 +45,11 @@ public class DocumentDetail extends Activity implements AdapterView.OnItemSelect
         Toast.makeText(this, "" + selectItem[0] + selectItem[1] + selectItem[2] + selectItem[3], Toast.LENGTH_SHORT).show();
         document = new DocumentFragment();
 
+        int i = initSpinner(selectItem[1]);
+        spinner.setSelection(i);
+        edt_date.setText(selectItem[2]);
+        edt_content.setText(selectItem[3]);
+
         btn_delete = (ImageButton) findViewById(R.id.btn_delete);
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,22 +60,32 @@ public class DocumentDetail extends Activity implements AdapterView.OnItemSelect
             }
         });
 
-        btn_edit = (ImageButton) findViewById(R.id.btn_edit);
-        btn_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edt_date.getText().toString().equals("") || Integer.parseInt(edt_date.getText().toString()) > 31)
-                    Toast.makeText(DocumentDetail.this, "날짜를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
-                else if (edt_content.getText().toString().equals("") == true)
-                    Toast.makeText(DocumentDetail.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
-                else {
-                    dbHelper.insertDocument(curLocation, month, Integer.parseInt(edt_date.getText().toString()), edt_content.getText().toString());
-                    Toast.makeText(DocumentDetail.this, "디비에 넣는 값\n" + curLocation + "/" + month + "/" + edt_date.getText().toString() + "/" + edt_content.getText().toString(), Toast.LENGTH_SHORT).show();
-                    setResult(200);
-                    finish();
-                }
+//        btn_edit = (ImageButton) findViewById(R.id.btn_edit);
+//        btn_edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (edt_date.getText().toString().equals("") || Integer.parseInt(edt_date.getText().toString()) > 31)
+//                    Toast.makeText(DocumentDetail.this, "날짜를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
+//                else if (edt_content.getText().toString().equals("") == true)
+//                    Toast.makeText(DocumentDetail.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
+//                else {
+//                    dbHelper.updateDocument(selectItem[0], selectItem[1], selectItem[2], selectItem[3], month,
+//                            Integer.parseInt(edt_date.getText().toString()), edt_content.getText().toString());
+//                    Toast.makeText(DocumentDetail.this, "디비에 update 값\n" + selectItem[0] + "/" + month + "/" + edt_date.getText().toString() + "/" + edt_content.getText().toString(), Toast.LENGTH_SHORT).show();
+//                    setResult(202);
+//                    finish();
+//                }
+//            }
+//        });
+    }
+
+    public int initSpinner(String month) {
+        for (int i = 0; i < 12; i++) {
+            if (month.equals(item[i].substring(0, 3))) {
+                return i;
             }
-        });
+        }
+        return 0;
     }
 
     @Override
