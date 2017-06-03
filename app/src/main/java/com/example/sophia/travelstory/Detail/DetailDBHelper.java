@@ -45,9 +45,16 @@ public class DetailDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void deleteDocument(String where) {
+    public void deleteDocument(String location, String month, String date, String content) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM DOCUMENT WHERE location = '" + where + "';");
+        db.execSQL("DELETE FROM DOCUMENT WHERE location = '" + location  + "'AND month = '" + month + "'AND date = '" + date
+                + "'AND content = '" + content +"';");
+        db.close();
+    }
+
+    public void updateDocument(String location, String month, String date, String content){
+        SQLiteDatabase db = getWritableDatabase();
+//        db.execSQL("UPDATE DOCUMENT WHERE location = '" + location + "', '" + month + "', '" + date + "', '" + content + "');");
         db.close();
     }
 

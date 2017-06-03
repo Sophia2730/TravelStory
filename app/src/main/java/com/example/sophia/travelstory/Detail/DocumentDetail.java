@@ -13,18 +13,18 @@ import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
-public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedListener {
+public class DocumentDetail extends Activity implements AdapterView.OnItemSelectedListener {
     Spinner spinner;
     String[] item;
-    ImageButton btn_add;
-    String month, curLocation;
+    ImageButton btn_edit, btn_delete;
+    String month, date, content, curLocation, selectItem[];
     DetailDBHelper dbHelper;
     DocumentFragment document;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_document_add);
+        setContentView(R.layout.activity_document_detail);
 
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
@@ -33,7 +33,6 @@ public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedL
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner.setAdapter(adapter);
 
         dbHelper = new DetailDBHelper(getApplicationContext(), "DOCUMENT.db", null, 1);
@@ -43,19 +42,31 @@ public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedL
 
         Intent intent = getIntent();
         curLocation = intent.getStringExtra("curLocation");
+        selectItem = intent.getStringArrayExtra("selectItem");
+        Toast.makeText(this, "" + selectItem[0] + selectItem[1] + selectItem[2] + selectItem[3], Toast.LENGTH_SHORT).show();
         document = new DocumentFragment();
 
-        btn_add = (ImageButton) findViewById(R.id.btn_add);
-        btn_add.setOnClickListener(new View.OnClickListener() {
+        btn_delete = (ImageButton) findViewById(R.id.btn_delete);
+        btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHelper.deleteDocument(selectItem[0], selectItem[1], selectItem[2], selectItem[3]);
+                setResult(201);
+                finish();
+            }
+        });
+
+        btn_edit = (ImageButton) findViewById(R.id.btn_edit);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (edt_date.getText().toString().equals("") || Integer.parseInt(edt_date.getText().toString()) > 31)
-                    Toast.makeText(DocumentAdd.this, "날짜를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DocumentDetail.this, "날짜를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
                 else if (edt_content.getText().toString().equals("") == true)
-                    Toast.makeText(DocumentAdd.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DocumentDetail.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
                 else {
-                    dbHelper.insertDocument(curLocation, month, (Integer.parseInt(edt_date.getText().toString())), edt_content.getText().toString());
-                    Toast.makeText(DocumentAdd.this, "디비에 넣는 값\n" + curLocation + "/" + month + "/" + edt_date.getText().toString() + "/" + edt_content.getText().toString(), Toast.LENGTH_SHORT).show();
+                    dbHelper.insertDocument(curLocation, month, Integer.parseInt(edt_date.getText().toString()), edt_content.getText().toString());
+                    Toast.makeText(DocumentDetail.this, "디비에 넣는 값\n" + curLocation + "/" + month + "/" + edt_date.getText().toString() + "/" + edt_content.getText().toString(), Toast.LENGTH_SHORT).show();
                     setResult(200);
                     finish();
                 }
@@ -65,11 +76,11 @@ public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedL
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        month = item[position].substring(0, 3);
+        month = item[position];
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        month = item[0].substring(0, 3);
+        month = item[0];
     }
 }

@@ -28,8 +28,8 @@ public class RecodeFragment extends Fragment {
         Toast.makeText(getActivity(), curLocation + "", Toast.LENGTH_SHORT).show();
 
 
-        Recode.add(new RecodeItem(R.drawable.ic_recode, "정은지", "에이핑크", "너란 봄"));
-        Recode.add(new RecodeItem(R.drawable.ic_recode, "트와이스", "JYP엔터테인먼트", "KNOCK KNOCK"));
+        Recode.add(new RecodeItem(R.drawable.ic_recode, "미국", "20170302", "00:19"));
+        Recode.add(new RecodeItem(R.drawable.ic_recode, "캐나다", "170503", "00:52"));
 
         // 어댑터 객체 생성
         adapter = new DetailActivity.RecodeAdapter(getActivity(), R.layout.recode_item, Recode);

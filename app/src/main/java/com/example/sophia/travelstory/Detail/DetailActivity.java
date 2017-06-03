@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
@@ -34,7 +33,9 @@ public class DetailActivity extends ActionBarActivity {
     DetailDBHelper dbHelper;
     SQLiteDatabase database;
     ArrayList<DocumentItem> Document = new ArrayList<DocumentItem>();
+    DocumentDetail documentDetail;
     static int currentView = 1;    //현재 보여지는 뷰 확인
+    static int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class DetailActivity extends ActionBarActivity {
 
         recodeFragment = new RecodeFragment();
         documentFragment = new DocumentFragment();
+        documentDetail = new DocumentDetail();
         recodeFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, recodeFragment).commit();
 
@@ -96,12 +98,11 @@ public class DetailActivity extends ActionBarActivity {
                     case R.id.navigation_recode:
                         fragment = new RecodeFragment();
                         currentView = 1;
-//                        Recode.add(new RecodeItem(R.drawable.travelstory_main_addimg, "홍콩", "170310~170311", "playtime"));
-//                        recodeAdapter = new RecodeAdapter(getApplicationContext(), R.layout.recode_item, Recode);
                         break;
                     case R.id.navigation_document:
                         fragment = new DocumentFragment();
                         currentView = 2;
+                        bundle.putInt("resultCode", 299);
                         break;
                 }
                 fragment.setArguments(bundle);
@@ -115,12 +116,24 @@ public class DetailActivity extends ActionBarActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 1001 & resultCode == 100) { //recodeAdd에서 넘어왓을 경우
 
         } else if (requestCode == 1001 & resultCode == 200) {    //DocumentAdd에서 넘어왓을 경우
-            Toast.makeText(this, "값을 받아왓다 드디어!!!!!", Toast.LENGTH_SHORT).show();
-            bundle.putInt("resultCode", 200);
+            bundle.putInt("resultCode", resultCode);
+        } else if (requestCode == 1001 & resultCode == 201) {      //DocumentDetail에서 넘어왔을 경우
+            bundle.putInt("resultCode", resultCode);
+            bundle.putInt("position", position);
         }
+    }
+
+    public void onDocuItemSelected(int position, String month, int date, String content) {
+        //position을 이용해 어댑터에서 아이템을 가져옴
+        String cur[] = {curLocation, month, Integer.toString(date), content};
+        Intent intent = new Intent(DetailActivity.this, DocumentDetail.class);
+        intent.putExtra("selectItem", cur);
+        this.position = position;
+        startActivityForResult(intent, 1001);
     }
 
 //    public void onItemSelected(int img, String name, String company, String song) { //아이템 선택시 실행되는 함수
