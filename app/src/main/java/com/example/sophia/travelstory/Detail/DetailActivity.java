@@ -118,6 +118,9 @@ public class DetailActivity extends ActionBarActivity {
 
         if (requestCode == 1001 & resultCode == 100) { //recodeAdd에서 넘어왓을 경우
             bundle.putInt("resultCode", resultCode);
+        } else if (requestCode == 1001 & resultCode == 101) {    //recodeDelete 넘어왓을 경우
+            bundle.putInt("resultCode", resultCode);
+            bundle.putInt("position", position);
         } else if (requestCode == 1001 & resultCode == 200) {    //DocumentAdd에서 넘어왓을 경우
             bundle.putInt("resultCode", resultCode);
         } else if (requestCode == 1001 & resultCode == 201) {      //DocumentDetail에서 넘어왔을 경우
@@ -134,6 +137,14 @@ public class DetailActivity extends ActionBarActivity {
         //position을 이용해 어댑터에서 아이템을 가져옴
         String cur[] = {curLocation, month, Integer.toString(date), content};
         Intent intent = new Intent(DetailActivity.this, DocumentDetail.class);
+        intent.putExtra("selectItem", cur);
+        this.position = position;
+        startActivityForResult(intent, 1001);
+    }
+
+    public void onRecodeItemSelected(int position, String name, String time) {
+        String cur[] = {curLocation, name, time};
+        Intent intent = new Intent(DetailActivity.this, RecodeDelete.class);
         intent.putExtra("selectItem", cur);
         this.position = position;
         startActivityForResult(intent, 1001);

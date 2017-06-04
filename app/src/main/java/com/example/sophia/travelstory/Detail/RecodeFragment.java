@@ -38,22 +38,15 @@ public class RecodeFragment extends Fragment {
                 Recode.add(new RecodeItem(R.drawable.ic_recode, cursor.getString(2), cursor.getString(3)));
             }
         }
-        Recode.add(new RecodeItem(R.drawable.ic_recode, "미국", "00:19"));
-
-        // 어댑터 객체 생성
         adapter = new DetailActivity.RecodeAdapter(getActivity(), R.layout.recode_item, Recode);
-
-        //listView 레이아웃 참조
         listView = (ListView) rootView.findViewById(R.id.recodelistview);
-
-        //어댑터 객체를 리스트 뷰에 설정
         listView.setAdapter(adapter);
 
-        //리스트뷰에서 아이템 클릭시 이벤트 처리
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                ((DetailActivity) getActivity()).onRecodeItemSelected(position, Recode.get(position).name,
+                        Recode.get(position).time);
             }
         });//end of setOnItemClickListener
 

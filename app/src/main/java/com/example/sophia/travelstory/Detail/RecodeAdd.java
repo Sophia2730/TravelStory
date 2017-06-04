@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
@@ -22,21 +21,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RecodeAdd extends AppCompatActivity implements View.OnClickListener {
-    // 미리 상수 선언
     private static final int REC_STOP = 0;
     private static final int RECORDING = 1;
     private static final int PLAY_STOP = 0;
-    private static final int PLAYING = 1;
-    private static final int PLAY_PAUSE = 2;
 
     private MediaRecorder mRecorder = null;
     private MediaPlayer mPlayer = null;
     private int mRecState = REC_STOP;
-    private int mPlayerState = PLAY_STOP;
-    private SeekBar mRecProgressBar, mPlayProgressBar;
-    private Button mBtnStartRec, mBtnStartPlay, mBtnStopPlay;
+    private SeekBar mRecProgressBar;
+    private Button mBtnStartRec;
     private String mFilePath, mFileName = null;
-    private TextView mTvPlayMaxPoint;
     DetailDBHelper dbHelper;
     private int mCurRecTimeMs = 0;
     private int mCurProgressTimeDisplay = 0;
