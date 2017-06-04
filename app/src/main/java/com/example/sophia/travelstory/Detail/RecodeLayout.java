@@ -18,7 +18,6 @@ public class RecodeLayout extends LinearLayout {
 
 	ImageView imageView;
 	TextView nameTextView;
-	TextView dateTextView;
 	TextView timeTextView;
 
 	//생성자-1
@@ -48,7 +47,6 @@ public class RecodeLayout extends LinearLayout {
 		//부분화면 레이아웃에 정의된 객체 참조
 		imageView = (ImageView) findViewById(R.id.imageView);
 		nameTextView = (TextView) findViewById(R.id.nameTextView);
-		dateTextView = (TextView) findViewById(R.id.dateTextView);
 		timeTextView = (TextView) findViewById(R.id.timeTextView);
 	}//end of init()
 
@@ -60,9 +58,6 @@ public class RecodeLayout extends LinearLayout {
 		nameTextView.setText(name);
 	}
 
-	public void setDate(String date) {//소속 설정
-		dateTextView.setText(date);
-	}
 
 	public void setTime(String time) {//노래 설정
 		timeTextView.setText(time);

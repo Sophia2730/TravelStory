@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.sophia.travelstory.MainActivity;
 import com.example.sophia.travelstory.R;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
-    Button btn_register, btn_login;
+    ImageButton btn_register, btn_login;
     EditText edt_id, edt_passwd;
     TextView txtview;
 
@@ -21,8 +21,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btn_register = (Button) findViewById(R.id.btn_register);
-        btn_login = (Button) findViewById(R.id.btn_login);
+        btn_register = (ImageButton) findViewById(R.id.btn_register);
+        btn_login = (ImageButton) findViewById(R.id.btn_login);
         edt_id = (EditText) findViewById(R.id.edt_id);
         edt_passwd = (EditText) findViewById(R.id.edt_passwd);
 

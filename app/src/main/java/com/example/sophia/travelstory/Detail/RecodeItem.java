@@ -7,14 +7,12 @@ package com.example.sophia.travelstory.Detail;
 public class RecodeItem {
     int resId;//이미지 리소스 id
     String name;//이름
-    String date;//날짜
     String time;//시간
 
     //생성자
-    public RecodeItem(int resId, String name, String date, String time ) {
+    public RecodeItem(int resId, String name, String time ) {
         this.resId = resId;
         this.name = name;
-        this.date = date;
         this.time = time;
     }
 
@@ -32,14 +30,6 @@ public class RecodeItem {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getTime() {

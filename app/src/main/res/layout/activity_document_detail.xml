@@ -50,6 +50,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:src="@drawable/travelstory_register_add"
         app:layout_constraintLeft_toLeftOf="@+id/edt_docuContent"
         app:layout_constraintTop_toBottomOf="@+id/edt_docuContent"
         app:srcCompat="@drawable/travelstory_register_add" />

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.sophia.travelstory.Detail.DetailDBHelper;
@@ -14,7 +15,8 @@ import com.example.sophia.travelstory.Detail.DetailDBHelper;
 public class MainTravelAdd extends Activity implements View.OnClickListener {
     final int REQUEST_FROM = 1001;
     final int REQUEST_TO = 1002;
-    Button btn_datefrom, btn_dateto, btn_ok, btn_cancel;
+    Button btn_datefrom, btn_dateto;
+    ImageButton btn_ok, btn_cancel;
     EditText edt_location;
     int year, month, day;
     DetailDBHelper dbHelper;
@@ -33,8 +35,8 @@ public class MainTravelAdd extends Activity implements View.OnClickListener {
 
         btn_dateto = (Button) findViewById(R.id.btn_dateto);
         btn_dateto.setPaintFlags(btn_dateto.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        btn_ok = (Button) findViewById(R.id.btn_add_ok);
-        btn_cancel = (Button) findViewById(R.id.btn_add_cancel);
+        btn_ok = (ImageButton) findViewById(R.id.btn_add_ok);
+        btn_cancel = (ImageButton) findViewById(R.id.btn_add_cancel);
 
         btn_datefrom.setOnClickListener(this);
         btn_dateto.setOnClickListener(this);

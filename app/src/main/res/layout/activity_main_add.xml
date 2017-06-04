@@ -114,23 +114,25 @@
         app:layout_constraintLeft_toRightOf="@+id/btn_dateto"
         app:layout_constraintTop_toTopOf="@+id/btn_dateto" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_add_cancel"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="24dp"
-        android:text="취소"
+        android:background="#00000000"
+        android:src="@drawable/travelstory_cancel"
         app:layout_constraintLeft_toLeftOf="@+id/btn_dateto"
         app:layout_constraintTop_toBottomOf="@+id/btn_dateto" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_add_ok"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
         android:layout_marginTop="0dp"
-        android:text="확인"
+        android:background="#00000000"
+        android:src="@drawable/travelstory_ok"
         app:layout_constraintRight_toRightOf="@+id/edt_location"
         app:layout_constraintTop_toTopOf="@+id/btn_add_cancel" />
 

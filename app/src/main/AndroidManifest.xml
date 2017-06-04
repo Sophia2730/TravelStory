@@ -6,7 +6,9 @@
     <permission
         android:name="com.example.sophia.locationmapservice01.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.example.sophia.locationmapservice01.permission.MAPS_RECEIVE" />
 
     <!-- 구글맵 API v2의 일반 권한 설정. -->
@@ -57,8 +59,9 @@
         <meta-data android:name="com.google.android.gms.version" />
 
         <activity android:name=".Detail.CurrentLocation" />
+        <activity android:name=".Detail.RecodeAdd"/>
         <activity
-            android:name=".Detail.RecodeAdd"
+            android:name=".Detail.RecodeDelete"
             android:label="@string/title_activity_recode_add"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

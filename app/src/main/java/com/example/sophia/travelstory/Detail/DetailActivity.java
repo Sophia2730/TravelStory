@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.example.sophia.travelstory.R;
 
@@ -118,7 +117,7 @@ public class DetailActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1001 & resultCode == 100) { //recodeAdd에서 넘어왓을 경우
-
+            bundle.putInt("resultCode", resultCode);
         } else if (requestCode == 1001 & resultCode == 200) {    //DocumentAdd에서 넘어왓을 경우
             bundle.putInt("resultCode", resultCode);
         } else if (requestCode == 1001 & resultCode == 201) {      //DocumentDetail에서 넘어왔을 경우
@@ -186,7 +185,6 @@ public class DetailActivity extends ActionBarActivity {
             //아이템에서 이미지 리소스 id를 가져와, 레이아웃에 이미지 설정
             recodeLayout.setImage(items.getResId());
             recodeLayout.setName(items.getName());
-            recodeLayout.setDate(items.getDate());
             recodeLayout.setTime(items.getTime());
             return recodeLayout;//레이아웃을 리턴
         }
@@ -197,10 +195,6 @@ public class DetailActivity extends ActionBarActivity {
         int document_item;
         ArrayList<DocumentItem> Document;
         LayoutInflater inflater;
-
-        TextView nameTextView;
-        TextView dateTextView;
-        TextView timeTextView;
 
         public DocumentAdapter(Context context, int document_item, ArrayList<DocumentItem> Document) {
             mContext = context;

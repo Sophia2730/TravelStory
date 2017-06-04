@@ -33,7 +33,6 @@ public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedL
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         spinner.setAdapter(adapter);
 
         dbHelper = new DetailDBHelper(getApplicationContext(), "DOCUMENT.db", null, 1);

@@ -17,7 +17,7 @@ public class DetailDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE TRAVEL (_id INTEGER PRIMARY KEY AUTOINCREMENT, location TEXT, datefrom TEXT, dateto TEXT);");
         db.execSQL("CREATE TABLE DOCUMENT (location TEXT, month TEXT, date INTEGER, content VARCHAR(100));");
-        db.execSQL("CREATE TABLE RECODE (location TEXT PRIMARY KEY, name TEXT, date TEXT, time TEXT, path TEXT);");
+        db.execSQL("CREATE TABLE RECODE (location TEXT, path TEXT, name TEXT, time TEXT);");
     }
 
     @Override
@@ -47,8 +47,20 @@ public class DetailDBHelper extends SQLiteOpenHelper {
 
     public void deleteDocument(String location, String month, String date, String content) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM DOCUMENT WHERE location = '" + location  + "'AND month = '" + month + "'AND date = '" + date
-                + "'AND content = '" + content +"';");
+        db.execSQL("DELETE FROM DOCUMENT WHERE location = '" + location + "'AND month = '" + month + "'AND date = '" + date
+                + "'AND content = '" + content + "';");
+        db.close();
+    }
+
+    public void insertRecode(String location, String path, String name,String time) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO RECODE VALUES('" + location + "', '" + path + "', '" + name + "', '" + time + "');");
+        db.close();
+    }
+
+    public void deleteRecode(String location, String path, String name) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM RECODE WHERE location = '" + location + "'AND path = '" + path + "'AND name = '" + name + "';");
         db.close();
     }
 
@@ -60,15 +72,5 @@ public class DetailDBHelper extends SQLiteOpenHelper {
 //        db.close();
 //    }
 
-    public void insertRecode(String location, String name, String date, String time, String path) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO RECODE VALUES('" + location + "', '" + name + "', '" + date + "', '" + time + "', '" + path + "');");
-        db.close();
-    }
 
-    public void deleteRecode(String where) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM RECODE WHERE location = '" + where + "';");
-        db.close();
-    }
 }
