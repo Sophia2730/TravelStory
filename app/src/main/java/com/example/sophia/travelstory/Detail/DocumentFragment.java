@@ -20,11 +20,9 @@ public class DocumentFragment extends Fragment {
     ArrayList<DocumentItem> Document = new ArrayList<DocumentItem>();
     ListView listView;
     DetailActivity.DocumentAdapter adapter;
-    DocumentDetail documentDetail;
     int resultCode;
     DetailDBHelper dbHelper;
     SQLiteDatabase database;
-    static boolean isclicked =false;
 
     @Nullable
     @Override
@@ -48,16 +46,11 @@ public class DocumentFragment extends Fragment {
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            /* params
-                  - parent : 클릭한 아이템을 포함하는 부모 뷰(ListView)
-                  - view : 클릭한 항목의 View
-                  - position : 클릭한 아이템의 Adepter에서의 위치값(0, 1, 2,...)
-                  - id : DB를 사용했을 때 Cursor의 id 값값
-               */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((DetailActivity) getActivity()).onDocuItemSelected(position, Document.get(position).month,
-                        Document.get(position).date, Document.get(position).content);
+                Cursor cursor = database.rawQuery("SELECT * FROM DOCUMENT", null);
+                cursor.moveToPosition(position);
+                ((DetailActivity) getActivity()).onDocuItemSelected(position, cursor.getString(1), cursor.getInt(2), cursor.getString(3));
             }
         });
         return rootView;
@@ -67,15 +60,22 @@ public class DocumentFragment extends Fragment {
     public void onStart() {        //삭제시 실행되는 메소드
         super.onStart();
         Bundle bundle = getArguments();
-        int resultCode = bundle.getInt("resultCode");
-
-        if (resultCode == 200 ) {      //detailadd
-            Cursor cursor = database.rawQuery("SELECT * FROM DOCUMENT", null);
+        resultCode = bundle.getInt("resultCode");
+        int position = bundle.getInt("position");
+        Cursor cursor = database.rawQuery("SELECT * FROM DOCUMENT", null);
+        if (resultCode == 200) {      //document add
             cursor.moveToLast();
             Document.add(new DocumentItem((cursor.getString(1)).substring(0, 3), cursor.getInt(2), cursor.getString(3)));
-        } else if (resultCode == 201) {                    //detaildelete
-            Toast.makeText(getContext(), "" + bundle.getInt("position"), Toast.LENGTH_SHORT).show();
-            Document.remove(bundle.getInt("position"));
+        } else if (resultCode == 201) {                    //document delete
+            Document.remove(position);
+        } else if (resultCode == 202) {                    //document update
+            Toast.makeText(getContext(), "2020202020202   :   " + position, Toast.LENGTH_SHORT).show();
+            cursor.moveToPosition(position);
+            Document.set(position, new DocumentItem(cursor.getString(1).substring(0, 3), cursor.getInt(2), cursor.getString(3)));     //asdfasdfadfsadf
+        }
+        Cursor cursor1 = database.rawQuery("SELECT * FROM DOCUMENT", null);
+        while (cursor1.moveToNext()) {
+            Toast.makeText(getContext(), "DB : " + cursor1.getString(3), Toast.LENGTH_SHORT).show();
         }
         adapter.notifyDataSetChanged();
     }

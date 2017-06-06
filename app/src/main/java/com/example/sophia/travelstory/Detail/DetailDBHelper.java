@@ -64,13 +64,11 @@ public class DetailDBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-//    public void updateDocument(String location, String Pmonth, String Pdate, String Pcontent, String month, int date, String content){
-//        SQLiteDatabase db = getWritableDatabase();
-//        db.execSQL("UPDATE DOCUMENT SET month = '" + month + "', date = '" + date + "', content = '" + content +
-//                "' WHERE location = '" + location  + "'AND month = '" + Pmonth + "'AND date = '" + Pdate
-//                + "'AND content = '" + Pcontent +"';");
-//        db.close();
-//    }
-
-
+    public void updateDocument(String location, String Pmonth, String Pdate, String Pcontent, String month, int date, String content){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("UPDATE DOCUMENT SET month = '" + month + "', date = '" + date + "', content = '" + content +
+                "' WHERE location = '" + location  + "'AND month = '" + Pmonth + "'AND date = '" + Pdate
+                + "'AND content = '" + Pcontent +"';");
+        db.close();
+    }
 }

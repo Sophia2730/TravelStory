@@ -3,13 +3,13 @@ package com.example.sophia.travelstory.Detail;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
@@ -42,7 +42,6 @@ public class DocumentDetail extends Activity implements AdapterView.OnItemSelect
         Intent intent = getIntent();
         curLocation = intent.getStringExtra("curLocation");
         selectItem = intent.getStringArrayExtra("selectItem");
-        Toast.makeText(this, "" + selectItem[0] + selectItem[1] + selectItem[2] + selectItem[3], Toast.LENGTH_SHORT).show();
         document = new DocumentFragment();
 
         int i = initSpinner(selectItem[1]);
@@ -60,23 +59,24 @@ public class DocumentDetail extends Activity implements AdapterView.OnItemSelect
             }
         });
 
-//        btn_edit = (ImageButton) findViewById(R.id.btn_edit);
-//        btn_edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+        btn_edit = (ImageButton) findViewById(R.id.btn_edit);
+        btn_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                if (edt_date.getText().toString().equals("") || Integer.parseInt(edt_date.getText().toString()) > 31)
 //                    Toast.makeText(DocumentDetail.this, "날짜를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
 //                else if (edt_content.getText().toString().equals("") == true)
 //                    Toast.makeText(DocumentDetail.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
 //                else {
-//                    dbHelper.updateDocument(selectItem[0], selectItem[1], selectItem[2], selectItem[3], month,
-//                            Integer.parseInt(edt_date.getText().toString()), edt_content.getText().toString());
-//                    Toast.makeText(DocumentDetail.this, "디비에 update 값\n" + selectItem[0] + "/" + month + "/" + edt_date.getText().toString() + "/" + edt_content.getText().toString(), Toast.LENGTH_SHORT).show();
-//                    setResult(202);
-//                    finish();
+                dbHelper.updateDocument(selectItem[0], selectItem[1], selectItem[2], selectItem[3], month.substring(0, 3),
+                        Integer.parseInt(edt_date.getText().toString()), edt_content.getText().toString());
+                Log.d("123123123123123123", "디비에 바뀔 값 " + selectItem[1] + "," + selectItem[2] + "," + selectItem[3] + ",");
+                Log.d("!@#!@#!@#!@#!@#!@#", "디비에 update" + "/" + month.substring(0,3) + "/" + edt_date.getText().toString() + "/" + edt_content.getText().toString() + "/");
+                setResult(202);
+                finish();
 //                }
-//            }
-//        });
+            }
+        });
     }
 
     public int initSpinner(String month) {

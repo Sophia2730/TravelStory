@@ -1,13 +1,11 @@
 package com.example.sophia.travelstory.Detail;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -72,8 +70,7 @@ public class RecodeAdd extends AppCompatActivity implements View.OnClickListener
                 "yyyy_MM_dd_HH_mm");
 
         // 파일명 위에서 정한 파일명을 WJ 폴더에 저장
-        mFileName = "/"
-                + timeStampFormat.format(new Date()).toString()
+        mFileName = timeStampFormat.format(new Date()).toString()
                 + ".mp4";
 
         mBtnStartRec = (Button) findViewById(R.id.btnStartRec);
@@ -173,39 +170,6 @@ public class RecodeAdd extends AppCompatActivity implements View.OnClickListener
         Toast.makeText(RecodeAdd.this, "디비에 넣는 값\n" + "/" + mFilePath + "/" + mFileName + "/" + maxMinPointStr + maxSecPointStr, Toast.LENGTH_SHORT).show();
         setResult(100);
         finish();
-    }
-
-    public void showDialog() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RecodeAdd.this);
-        alertDialogBuilder.setTitle("녹음 저장");
-        alertDialogBuilder
-                .setMessage("녹음을 저장하시겠습니까?")
-                .setCancelable(false)
-                .setPositiveButton("저장",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(
-                                    DialogInterface dialog, int id) {
-                                try {
-                                    mRecorder = new MediaRecorder();
-                                    mRecorder.release();
-                                    finish();
-                                } catch (IllegalStateException e) {
-                                }
-                            }
-                        })
-                .setNegativeButton("취소",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(
-                                    DialogInterface dialog, int id) {
-                                // 다이얼로그를 취소한다
-                                dialog.cancel();
-                                mRecorder = new MediaRecorder();
-                                mRecorder.reset();
-                                finish();
-                            }
-                        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
     }
 
     private void updateUI() {

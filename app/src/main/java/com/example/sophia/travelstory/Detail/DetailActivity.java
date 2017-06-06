@@ -121,16 +121,15 @@ public class DetailActivity extends ActionBarActivity {
         } else if (requestCode == 1001 & resultCode == 101) {    //recodeDelete 넘어왓을 경우
             bundle.putInt("resultCode", resultCode);
             bundle.putInt("position", position);
-        } else if (requestCode == 1001 & resultCode == 200) {    //DocumentAdd에서 넘어왓을 경우
+        } else if (requestCode == 1001 & resultCode == 200) {    //Document Add에서 넘어왓을 경우
             bundle.putInt("resultCode", resultCode);
-        } else if (requestCode == 1001 & resultCode == 201) {      //DocumentDetail에서 넘어왔을 경우
+        } else if (requestCode == 1001 & resultCode == 201) {      //Document Delete에서 넘어왔을 경우
+            bundle.putInt("resultCode", resultCode);
+            bundle.putInt("position", position);
+        } else if (requestCode == 1001 & resultCode == 202) {      //Document update에서 넘어왔을 경우
             bundle.putInt("resultCode", resultCode);
             bundle.putInt("position", position);
         }
-//        else if (requestCode == 1001 & resultCode == 202) {      //DocumentDetail에서 넘어왔을 경우
-//            bundle.putInt("resultCode", resultCode);
-//            bundle.putInt("position", position);
-//        }
     }
 
     public void onDocuItemSelected(int position, String month, int date, String content) {

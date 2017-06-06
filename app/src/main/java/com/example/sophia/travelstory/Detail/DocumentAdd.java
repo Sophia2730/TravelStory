@@ -16,7 +16,7 @@ import com.example.sophia.travelstory.R;
 public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedListener {
     Spinner spinner;
     String[] item;
-    ImageButton btn_add;
+    ImageButton btn_add, btn_edit;
     String month, curLocation;
     DetailDBHelper dbHelper;
     DocumentFragment document;
@@ -50,10 +50,10 @@ public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedL
             public void onClick(View v) {
                 if (edt_date.getText().toString().equals("") || Integer.parseInt(edt_date.getText().toString()) > 31)
                     Toast.makeText(DocumentAdd.this, "날짜를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
-                else if (edt_content.getText().toString().equals("") == true)
+                else if (edt_content.getText().toString().equals(""))
                     Toast.makeText(DocumentAdd.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
                 else {
-                    dbHelper.insertDocument(curLocation, month, (Integer.parseInt(edt_date.getText().toString())), edt_content.getText().toString());
+                    dbHelper.insertDocument(curLocation, month.substring(0,3), (Integer.parseInt(edt_date.getText().toString())), edt_content.getText().toString());
                     Toast.makeText(DocumentAdd.this, "디비에 넣는 값\n" + curLocation + "/" + month + "/" + edt_date.getText().toString() + "/" + edt_content.getText().toString(), Toast.LENGTH_SHORT).show();
                     setResult(200);
                     finish();

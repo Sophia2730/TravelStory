@@ -73,6 +73,7 @@ public class MainActivity extends Activity {
 
                                         //받아온 장소를 조건으로 삼아 delete해줌
                                         Plan.remove(position);
+
                                         dbHelper.deleteTravel(curName);
                                         adapter.notifyDataSetChanged();
                                     }
