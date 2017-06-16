@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +44,9 @@ public class CurrentLocation extends AppCompatActivity {
         fragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                LatLng location = new LatLng(37.450933, 127.127168);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+                googleMap.animateCamera(CameraUpdateFactory.zoomTo(18));
                 map = googleMap;
             }
         });
@@ -53,7 +55,7 @@ public class CurrentLocation extends AppCompatActivity {
             MapsInitializer.initialize(this);
         } catch (Exception e) {
             e.printStackTrace();
-        }//end of try
+        }
 
         startLocationService();
         checkDangerousPermissions();
@@ -67,7 +69,7 @@ public class CurrentLocation extends AppCompatActivity {
                 searchLocation(edt_text.getText().toString());
             }
         });
-    }//end of onCreate
+    }
 
     private void startLocationService() {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -103,9 +105,6 @@ public class CurrentLocation extends AppCompatActivity {
         public void onLocationChanged(Location location) {
             Double latitude = location.getLatitude();
             Double longitude = location.getLongitude();
-
-            String msg = "Latitude : " + latitude + "\nLongitude:" + longitude;
-            Log.i("GPSLocationService", msg);
 
             showCurrentLocation(latitude, longitude);
         }

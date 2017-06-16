@@ -10,9 +10,9 @@
 
     <EditText
         android:id="@+id/edt_name"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="85dp"
+        android:layout_marginLeft="75dp"
         android:layout_marginTop="150dp"
         android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
         android:drawableStart="@drawable/ic_perm_identity_black_24dp"
@@ -24,7 +24,7 @@
 
     <EditText
         android:id="@+id/edt_id"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_person_black_24dp"
@@ -38,7 +38,7 @@
 
     <EditText
         android:id="@+id/edt_passwd"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_lock_black_24dp"
@@ -51,7 +51,7 @@
 
     <EditText
         android:id="@+id/edt_passwd2"
-        android:layout_width="0dp"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_lock_black_24dp"
@@ -64,7 +64,7 @@
 
     <EditText
         android:id="@+id/edt_email"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_email_black_24dp"
@@ -77,21 +77,11 @@
 
     <ImageButton
         android:id="@+id/btn_registeruser"
-        android:src="@drawable/travelstory_register_add"
-        android:layout_width="210dp"
+        android:layout_width="220dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
+        android:src="@drawable/travelstory_register_add"
         app:layout_constraintLeft_toLeftOf="@+id/edt_name"
         app:layout_constraintTop_toBottomOf="@+id/edt_email" />
-
-    <Button
-        android:id="@+id/btn_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="-68dp"
-        android:layout_marginTop="8dp"
-        android:text="임시적으로 디비 지우기"
-        app:layout_constraintRight_toRightOf="@+id/edt_name"
-        app:layout_constraintTop_toBottomOf="@+id/btn_registeruser" />
 
 </android.support.constraint.ConstraintLayout>

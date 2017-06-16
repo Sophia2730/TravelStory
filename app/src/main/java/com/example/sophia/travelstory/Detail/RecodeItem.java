@@ -5,7 +5,7 @@ package com.example.sophia.travelstory.Detail;
  */
 
 public class RecodeItem {
-    int resId;//이미지 리소스 id
+    int resId;//이미지 id
     String name;//이름
     String time;//시간
 
@@ -40,3 +40,4 @@ public class RecodeItem {
         this.time = time;
     }
 }
+

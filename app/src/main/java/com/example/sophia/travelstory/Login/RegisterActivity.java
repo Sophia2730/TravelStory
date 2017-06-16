@@ -1,10 +1,8 @@
 package com.example.sophia.travelstory.Login;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -26,9 +24,7 @@ public class RegisterActivity extends Activity {
         final EditText edt_name = (EditText) findViewById(R.id.edt_name);
         final EditText edt_id = (EditText) findViewById(R.id.edt_id);
 
-        final ContentValues values = new ContentValues();
-
-        // DB에 데이터 추가
+        // 추가버튼 클릭시 DB에 데이터 추가
         ImageButton btn_register = (ImageButton) findViewById(R.id.btn_registeruser);
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,21 +40,14 @@ public class RegisterActivity extends Activity {
                 else if (!passwd.equals(passwdCheck))
                     Toast.makeText(RegisterActivity.this, "비밀번호가 서로 맞지 않습니다!!", Toast.LENGTH_SHORT).show();
                 else {
-                    /*아이디가 같으면 안만들어지는 코드 구현!!!!!!!!!*/
-                    dbHelper.insert(name, id, passwd, email);
-                    Toast.makeText(RegisterActivity.this, "회원가입 완료!", Toast.LENGTH_SHORT).show();
-                    finish();
+                    try{                  //id는 primary key이기 때문에 오류 발생시 이미 가입된 아이디라는 것을 알려줌
+                        dbHelper.insert(name, id, passwd, email);
+                        Toast.makeText(RegisterActivity.this, "회원가입 완료!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } catch (Exception e){
+                        Toast.makeText(RegisterActivity.this, "이미 가입된 아이디입니다!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-            }
-        });
-
-        Button btn_delete = (Button) findViewById(R.id.btn_delete);
-        btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dbHelper.delete();
-//                result.setText(dbHelper.getResult());
             }
         });
     }

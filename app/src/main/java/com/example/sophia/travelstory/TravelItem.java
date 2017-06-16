@@ -4,8 +4,9 @@ package com.example.sophia.travelstory;
  * Created by sophia on 2017. 5. 19..
  */
 
+//아이템 설정
 public class TravelItem {
-    int resId;      //이미지 리소스 id
+    int resId;      //이미지 id
     String location;//여행장소
     String period;  //여행기간
 

@@ -16,7 +16,7 @@ import com.example.sophia.travelstory.R;
 public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedListener {
     Spinner spinner;
     String[] item;
-    ImageButton btn_add, btn_edit;
+    ImageButton btn_add;
     String month, curLocation;
     DetailDBHelper dbHelper;
     DocumentFragment document;
@@ -29,6 +29,7 @@ public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedL
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
 
+        //스피너에서 보여주는 리스트 저장
         item = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
@@ -53,8 +54,7 @@ public class DocumentAdd extends Activity implements AdapterView.OnItemSelectedL
                 else if (edt_content.getText().toString().equals(""))
                     Toast.makeText(DocumentAdd.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
                 else {
-                    dbHelper.insertDocument(curLocation, month.substring(0,3), (Integer.parseInt(edt_date.getText().toString())), edt_content.getText().toString());
-                    Toast.makeText(DocumentAdd.this, "디비에 넣는 값\n" + curLocation + "/" + month + "/" + edt_date.getText().toString() + "/" + edt_content.getText().toString(), Toast.LENGTH_SHORT).show();
+                    dbHelper.insertDocument(curLocation, month.substring(0, 3), edt_date.getText().toString(), edt_content.getText().toString());
                     setResult(200);
                     finish();
                 }

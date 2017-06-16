@@ -48,11 +48,11 @@ public class MainTravelAdd extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent = new Intent(MainTravelAdd.this, CalenderAdd.class);
         switch (v.getId()){
-            case R.id.btn_datefrom:
+            case R.id.btn_datefrom:     //출발날짜 버튼 클릭시 select에 1을 넘겨줌
                 intent.putExtra("select", 1);
                 startActivityForResult(intent, REQUEST_FROM);
                 break;
-            case R.id.btn_dateto:
+            case R.id.btn_dateto:       //도착날짜 버튼 클릭시 select에 2를 넘겨줌
                 intent.putExtra("select", 2);
                 startActivityForResult(intent, REQUEST_TO);
                 break;
@@ -63,12 +63,13 @@ public class MainTravelAdd extends Activity implements View.OnClickListener {
                     Toast.makeText(this, "출발 날짜를 선택해주세요!", Toast.LENGTH_SHORT).show();
                 else if (btn_dateto.getText().toString().equals(""))
                     Toast.makeText(this, "도착 날짜를 선택해주세요!", Toast.LENGTH_SHORT).show();
-                else {      //여행 추가
+                else {      //예외에 해당하지 않는다면 여행 추가
                     intent = new Intent(MainTravelAdd.this, MainActivity.class);
                     intent.putExtra("location", edt_location.getText().toString());
                     intent.putExtra("datefrom", btn_datefrom.getText().toString());
                     intent.putExtra("dateto", btn_dateto.getText().toString());
 
+                    //db에 입력된 값 저장
                     dbHelper.insertTravel(edt_location.getText().toString(), btn_datefrom.getText().toString(), btn_dateto.getText().toString());
                     setResult(201, intent);
                     finish();
@@ -84,7 +85,7 @@ public class MainTravelAdd extends Activity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         boolean overday =false;
-        if (requestCode == REQUEST_FROM & resultCode == RESULT_OK){
+        if (requestCode == REQUEST_FROM & resultCode == RESULT_OK){         //출발날짜를 눌럿던 경우 값을 받아옴
             year = data.getIntExtra("year", 0);
             month = data.getIntExtra("month", 0);
             day = data.getIntExtra("day", 0);
@@ -93,7 +94,8 @@ public class MainTravelAdd extends Activity implements View.OnClickListener {
                     + day, Toast.LENGTH_LONG).show();
             btn_datefrom.setText(year+"/"+(month+1)+"/"+day+"");
         }
-        else if (requestCode == REQUEST_TO & resultCode == RESULT_OK){
+        else if (requestCode == REQUEST_TO & resultCode == RESULT_OK){      //도착날짜를 눌럿던 경우 값을 받아
+            //도착날짜가 출발날짜보다 늦지 않도록 설정
             if (year < data.getIntExtra("year", 0))
                 overday = true;
             else if (year == data.getIntExtra("year", 0)) {
@@ -111,7 +113,7 @@ public class MainTravelAdd extends Activity implements View.OnClickListener {
             else if (year > data.getIntExtra("year", 0))
                 Toast.makeText(this, "날짜를 다시 설정해주세요!!", Toast.LENGTH_SHORT).show();
 
-            if (overday){
+            if (overday){       //예외에 해당하지 않는다면 값을 넘겨줌
                 year = data.getIntExtra("year", 0);
                 month = data.getIntExtra("month", 0);
                 day = data.getIntExtra("day", 0);

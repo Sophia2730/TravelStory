@@ -3,13 +3,13 @@ package com.example.sophia.travelstory.Detail;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
@@ -17,9 +17,9 @@ public class DocumentDetail extends Activity implements AdapterView.OnItemSelect
     Spinner spinner;
     String[] item;
     ImageButton btn_edit, btn_delete;
-    String month, date, content, curLocation, selectItem[];
+    String month, content, curLocation, selectItem[];
+    int dbindex;
     DetailDBHelper dbHelper;
-    DocumentFragment document;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class DocumentDetail extends Activity implements AdapterView.OnItemSelect
         spinner.setOnItemSelectedListener(this);
         item = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
+        //spinner 설
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -40,10 +41,11 @@ public class DocumentDetail extends Activity implements AdapterView.OnItemSelect
         edt_content = (EditText) findViewById(R.id.edt_docuContent);
 
         Intent intent = getIntent();
+        dbindex = intent.getIntExtra("dbindex", -1);
         curLocation = intent.getStringExtra("curLocation");
         selectItem = intent.getStringArrayExtra("selectItem");
-        document = new DocumentFragment();
 
+        //intent로 받아온 값을 불러온다
         int i = initSpinner(selectItem[1]);
         spinner.setSelection(i);
         edt_date.setText(selectItem[2]);
@@ -63,23 +65,20 @@ public class DocumentDetail extends Activity implements AdapterView.OnItemSelect
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (edt_date.getText().toString().equals("") || Integer.parseInt(edt_date.getText().toString()) > 31)
-//                    Toast.makeText(DocumentDetail.this, "날짜를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
-//                else if (edt_content.getText().toString().equals("") == true)
-//                    Toast.makeText(DocumentDetail.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
-//                else {
-                dbHelper.updateDocument(selectItem[0], selectItem[1], selectItem[2], selectItem[3], month.substring(0, 3),
-                        Integer.parseInt(edt_date.getText().toString()), edt_content.getText().toString());
-                Log.d("123123123123123123", "디비에 바뀔 값 " + selectItem[1] + "," + selectItem[2] + "," + selectItem[3] + ",");
-                Log.d("!@#!@#!@#!@#!@#!@#", "디비에 update" + "/" + month.substring(0,3) + "/" + edt_date.getText().toString() + "/" + edt_content.getText().toString() + "/");
-                setResult(202);
-                finish();
-//                }
+                if (edt_date.getText().toString().equals("") || Integer.parseInt(edt_date.getText().toString()) > 31)
+                    Toast.makeText(DocumentDetail.this, "날짜를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
+                else if (edt_content.getText().toString().equals("") == true)
+                    Toast.makeText(DocumentDetail.this, "내용을 입력해주세요!", Toast.LENGTH_SHORT).show();
+                else {
+                    dbHelper.updateDocument(dbindex, month.substring(0, 3), edt_date.getText().toString(), edt_content.getText().toString());
+                    setResult(202);
+                    finish();
+                }
             }
         });
     }
 
-    public int initSpinner(String month) {
+    public int initSpinner(String month) {      //헤딩 month값 불러와서 spinner에 불러올 때 사용
         for (int i = 0; i < 12; i++) {
             if (month.equals(item[i].substring(0, 3))) {
                 return i;

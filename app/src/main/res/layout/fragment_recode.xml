@@ -4,6 +4,7 @@
     android:name="com.example.sophia.travelstory.Detail.RecodeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/travelstory_background"
     android:orientation="vertical"
     tools:context="com.example.sophia.travelstory.Detail.RecodeFragment">
 
@@ -12,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:dividerHeight="1dp"
-        android:listSelector="#FFE1E1E5" />
+        android:dividerHeight="1dp" />
 
 </LinearLayout>

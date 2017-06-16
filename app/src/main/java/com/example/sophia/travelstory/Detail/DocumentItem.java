@@ -5,22 +5,22 @@ package com.example.sophia.travelstory.Detail;
  */
 
 public class DocumentItem {
-    String month;//날짜
-    int date;
+    String month;   //달
+    String date;    //일
     String content;//시간
 
     //생성자
-    public DocumentItem(String month, int date, String content) {
+    public DocumentItem(String month, String date, String content) {
         this.month = month;
         this.date = date;
         this.content = content;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

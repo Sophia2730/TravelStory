@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
@@ -23,21 +22,21 @@ public class DocumentFragment extends Fragment {
     int resultCode;
     DetailDBHelper dbHelper;
     SQLiteDatabase database;
+    String curLocation;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_document, container, false);
 
-        final String curLocation = getArguments().getString("curLocation");
-//        Toast.makeText(getActivity(), curLocation + "", Toast.LENGTH_SHORT).show();
+        curLocation = getArguments().getString("curLocation");
 
         dbHelper = new DetailDBHelper(getContext(), "DOCUMENT.db", null, 1);
         if (dbHelper != null) {
             database = dbHelper.getReadableDatabase();
             Cursor cursor = database.rawQuery("SELECT * FROM DOCUMENT WHERE location = '" + curLocation + "';", null);
             while (cursor.moveToNext()) {
-                Document.add(new DocumentItem((cursor.getString(1)).substring(0, 3), cursor.getInt(2), cursor.getString(3)));
+                Document.add(new DocumentItem(cursor.getString(2), cursor.getString(3), cursor.getString(4)));
             }
         }
 
@@ -48,34 +47,33 @@ public class DocumentFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cursor cursor = database.rawQuery("SELECT * FROM DOCUMENT", null);
-                cursor.moveToPosition(position);
-                ((DetailActivity) getActivity()).onDocuItemSelected(position, cursor.getString(1), cursor.getInt(2), cursor.getString(3));
+                Cursor cursor = database.rawQuery("SELECT _id FROM DOCUMENT WHERE month = '" + Document.get(position).getMonth() + "'AND date = '" + Document.get(position).getDate()
+                        + "'AND content = '" + Document.get(position).getContent() + "';", null);
+                cursor.moveToNext();
+                int dbindex = cursor.getInt(0);
+
+                //DetailActivity의 함수 실행
+                ((DetailActivity) getActivity()).onDocuItemSelected(position, dbindex, Document.get(position).getMonth(), Document.get(position).getDate(), Document.get(position).getContent());
             }
         });
         return rootView;
     }
 
     @Override
-    public void onStart() {        //삭제시 실행되는 메소드
+    public void onStart() {        //삭제 및 수정시 실행되는 메소드
         super.onStart();
         Bundle bundle = getArguments();
         resultCode = bundle.getInt("resultCode");
         int position = bundle.getInt("position");
-        Cursor cursor = database.rawQuery("SELECT * FROM DOCUMENT", null);
-        if (resultCode == 200) {      //document add
+        Cursor cursor = database.rawQuery("SELECT * FROM DOCUMENT WHERE location = '" + curLocation + "';", null);
+        if (resultCode == 200) {                            //document add를 요청한 경우
             cursor.moveToLast();
-            Document.add(new DocumentItem((cursor.getString(1)).substring(0, 3), cursor.getInt(2), cursor.getString(3)));
-        } else if (resultCode == 201) {                    //document delete
+            Document.add(new DocumentItem(cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+        } else if (resultCode == 201) {                     //document delete를 요청한 경우
             Document.remove(position);
-        } else if (resultCode == 202) {                    //document update
-            Toast.makeText(getContext(), "2020202020202   :   " + position, Toast.LENGTH_SHORT).show();
+        } else if (resultCode == 202) {                     //document update를 요청한 경우
             cursor.moveToPosition(position);
-            Document.set(position, new DocumentItem(cursor.getString(1).substring(0, 3), cursor.getInt(2), cursor.getString(3)));     //asdfasdfadfsadf
-        }
-        Cursor cursor1 = database.rawQuery("SELECT * FROM DOCUMENT", null);
-        while (cursor1.moveToNext()) {
-            Toast.makeText(getContext(), "DB : " + cursor1.getString(3), Toast.LENGTH_SHORT).show();
+            Document.set(position, new DocumentItem(cursor.getString(2), cursor.getString(3), cursor.getString(4)));     //해당 position의 값을 변경한다
         }
         adapter.notifyDataSetChanged();
     }

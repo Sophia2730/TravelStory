@@ -50,10 +50,10 @@
         android:layout_height="50dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/travelstory_register_add"
+        android:src="@drawable/travelstory_document_delete"
         app:layout_constraintLeft_toLeftOf="@+id/edt_docuContent"
         app:layout_constraintTop_toBottomOf="@+id/edt_docuContent"
-        app:srcCompat="@drawable/travelstory_register_add" />
+        app:srcCompat="@drawable/travelstory_document_delete" />
 
     <ImageButton
         android:id="@+id/btn_edit"
@@ -61,7 +61,7 @@
         android:layout_height="50dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/travelstory_register_add"
+        android:src="@drawable/travelstory_document_edit"
         app:layout_constraintRight_toRightOf="@+id/edt_docuContent"
         app:layout_constraintTop_toBottomOf="@+id/edt_docuContent" />
 </android.support.constraint.ConstraintLayout>

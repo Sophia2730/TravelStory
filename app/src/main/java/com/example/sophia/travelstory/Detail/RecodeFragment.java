@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
@@ -28,14 +27,14 @@ public class RecodeFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recode, container, false);
 
         final String curLocation = getArguments().getString("curLocation");
-//        Toast.makeText(getActivity(), curLocation + "", Toast.LENGTH_SHORT).show();
 
         dbHelper = new DetailDBHelper(getContext(), "RECODE.db", null, 1);
+        //초기에 DB에 있는 값들 불러와서 listView에 추가
         if (dbHelper != null) {
             database = dbHelper.getReadableDatabase();
             Cursor cursor = database.rawQuery("SELECT * FROM RECODE WHERE location = '" + curLocation + "';", null);
             while (cursor.moveToNext()) {
-                Recode.add(new RecodeItem(R.drawable.ic_recode, cursor.getString(2), cursor.getString(3)));
+                Recode.add(new RecodeItem(R.drawable.ic_recode, cursor.getString(3), cursor.getString(4)));
             }
         }
         adapter = new DetailActivity.RecodeAdapter(getActivity(), R.layout.recode_item, Recode);
@@ -48,23 +47,22 @@ public class RecodeFragment extends Fragment {
                 ((DetailActivity) getActivity()).onRecodeItemSelected(position, Recode.get(position).name,
                         Recode.get(position).time);
             }
-        });//end of setOnItemClickListener
+        });
 
         return rootView;
     }
 
     @Override
-    public void onStart() {        //삭제시 실행되는 메소드
+    public void onStart() {        //수정 및 삭제시 실행되는 메소드
         super.onStart();
         Bundle bundle = getArguments();
         int resultCode = bundle.getInt("resultCode");
 
-        if (resultCode == 100 ) {      //detailadd
+        if (resultCode == 100 ) {                           //recode Add 요청시
             Cursor cursor = database.rawQuery("SELECT * FROM RECODE", null);
             cursor.moveToLast();
-            Recode.add(new RecodeItem(R.drawable.ic_recode, cursor.getString(2), cursor.getString(3)));
-        } else if (resultCode == 101) {                    //detaildelete
-            Toast.makeText(getContext(), "" + bundle.getInt("position"), Toast.LENGTH_SHORT).show();
+            Recode.add(new RecodeItem(R.drawable.ic_recode, cursor.getString(3), cursor.getString(4)));
+        } else if (resultCode == 101) {                     //recode Delete 요청시
             Recode.remove(bundle.getInt("position"));
         }
         adapter.notifyDataSetChanged();

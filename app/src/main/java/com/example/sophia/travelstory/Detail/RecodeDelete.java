@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,24 +19,16 @@ import com.example.sophia.travelstory.R;
 public class RecodeDelete extends Activity implements View.OnClickListener, OnCompletionListener {
     String selectItem[];
     // 미리 상수 선언
-    private static final int REC_STOP = 0;
-    private static final int RECORDING = 1;
     private static final int PLAY_STOP = 0;
     private static final int PLAYING = 1;
-    private static final int PLAY_PAUSE = 2;
 
-    private MediaRecorder mRecorder = null;
     private MediaPlayer mPlayer = null;
-    private int mRecState = REC_STOP;
     private int mPlayerState = PLAY_STOP;
     private SeekBar mPlayProgressBar;
     private Button mBtnStartPlay, mBtnDelete;
     private String mFilePath, mFileName = null;
     private TextView mTvPlayMaxPoint;
     DetailDBHelper dbHelper;
-
-    private int mCurRecTimeMs = 0;
-    private int mCurProgressTimeDisplay = 0;
 
     // 재생시 SeekBar 처리
     Handler mProgressHandler2 = new Handler() {
@@ -71,10 +62,9 @@ public class RecodeDelete extends Activity implements View.OnClickListener, OnCo
 
         Intent intent = getIntent();
         selectItem = intent.getStringArrayExtra("selectItem");
-        Toast.makeText(this, "" + selectItem[0] + selectItem[1] + selectItem[2], Toast.LENGTH_SHORT).show();
 
-        String str = selectItem[2].substring(3);
-        mPlayProgressBar.setMax(Integer.parseInt(str) * 1000 + 500);
+        String str[] = selectItem[2].split(" ");
+        mPlayProgressBar.setMax(Integer.parseInt(str[0]) * 1000 + 500);
 
         mBtnStartPlay.setOnClickListener(this);
         mBtnDelete.setOnClickListener(this);

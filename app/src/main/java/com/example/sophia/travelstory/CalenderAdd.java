@@ -18,7 +18,7 @@ public class CalenderAdd extends Activity {
         calendarView = (CalendarView) findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,int dayOfMonth) {
+            public void onSelectedDayChange(CalendarView view, int year, int month,int dayOfMonth) {    //달력에서 선택시 값을 intent로 넘겨줌
                 calIntent.putExtra("year", year);
                 calIntent.putExtra("month", month);
                 calIntent.putExtra("day", dayOfMonth);

@@ -6,9 +6,10 @@
     <permission
         android:name="com.example.sophia.locationmapservice01.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.example.sophia.locationmapservice01.permission.MAPS_RECEIVE" />
 
     <!-- 구글맵 API v2의 일반 권한 설정. -->
@@ -26,6 +27,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -59,7 +61,7 @@
         <meta-data android:name="com.google.android.gms.version" />
 
         <activity android:name=".Detail.CurrentLocation" />
-        <activity android:name=".Detail.RecodeAdd"/>
+        <activity android:name=".Detail.RecodeAdd" />
         <activity
             android:name=".Detail.RecodeDelete"
             android:label="@string/title_activity_recode_add"
@@ -68,7 +70,7 @@
             android:name=".Detail.DocumentAdd"
             android:label="@string/title_activity_document_add"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Detail.DocumentDetail"/>
+        <activity android:name=".Detail.DocumentDetail" />
     </application>
 
 </manifest>
