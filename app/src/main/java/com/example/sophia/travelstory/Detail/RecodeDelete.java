@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.sophia.travelstory.R;
 
+import static com.example.sophia.travelstory.R.id.btnStartPlay;
+
 public class RecodeDelete extends Activity implements View.OnClickListener, OnCompletionListener {
     String selectItem[];
     // 미리 상수 선언
@@ -27,12 +29,14 @@ public class RecodeDelete extends Activity implements View.OnClickListener, OnCo
     private SeekBar mPlayProgressBar;
     private Button mBtnStartPlay, mBtnDelete;
     private String mFilePath, mFileName = null;
-    private TextView mTvPlayMaxPoint;
+    private TextView tvPlayStartPoint, mTvPlayMaxPoint;
     DetailDBHelper dbHelper;
+    private int mCurRecTimeMs = 0;
 
     // 재생시 SeekBar 처리
     Handler mProgressHandler2 = new Handler() {
         public void handleMessage(Message msg) {
+            mCurRecTimeMs = mCurRecTimeMs + 100;
             if (mPlayer == null) return;
 
             try {
@@ -43,6 +47,7 @@ public class RecodeDelete extends Activity implements View.OnClickListener, OnCo
             } catch (IllegalStateException e) {
             } catch (Exception e) {
             }
+            tvPlayStartPoint.setText(mCurRecTimeMs / 1000 + " sec");
         }
     };
 
@@ -55,10 +60,11 @@ public class RecodeDelete extends Activity implements View.OnClickListener, OnCo
         mFilePath = "/sdcard/Download/";
         dbHelper = new DetailDBHelper(getApplicationContext(), "RECODE.db", null, 1);
 
-        mBtnStartPlay = (Button) findViewById(R.id.btnStartPlay);
+        mBtnStartPlay = (Button) findViewById(btnStartPlay);
         mBtnDelete = (Button) findViewById(R.id.btnDelete);
         mPlayProgressBar = (SeekBar) findViewById(R.id.playProgressBar);
         mTvPlayMaxPoint = (TextView) findViewById(R.id.tvPlayMaxPoint);
+        tvPlayStartPoint = (TextView) findViewById(R.id.tvPlayStartPoint);
 
         Intent intent = getIntent();
         selectItem = intent.getStringArrayExtra("selectItem");
@@ -76,7 +82,7 @@ public class RecodeDelete extends Activity implements View.OnClickListener, OnCo
     // 버튼의 OnClick 이벤트 리스너
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnStartPlay:
+            case btnStartPlay:
                 mBtnStartPlayOnClick();
                 break;
             case R.id.btnDelete:

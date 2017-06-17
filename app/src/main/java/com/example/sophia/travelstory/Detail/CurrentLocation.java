@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-//현재 위치의 지도 보여주는 방법
+//구글 지도를 보여주는 방법
 public class CurrentLocation extends AppCompatActivity {
     private GoogleMap map;
     private Geocoder gc;

@@ -21,6 +21,7 @@ public class RecodeFragment extends Fragment {
     DetailActivity.RecodeAdapter adapter;
     DetailDBHelper dbHelper;
     SQLiteDatabase database;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class RecodeFragment extends Fragment {
         Bundle bundle = getArguments();
         int resultCode = bundle.getInt("resultCode");
 
-        if (resultCode == 100 ) {                           //recode Add 요청시
+        if (resultCode == 100) {                           //recode Add 요청시
             Cursor cursor = database.rawQuery("SELECT * FROM RECODE", null);
             cursor.moveToLast();
             Recode.add(new RecodeItem(R.drawable.ic_recode, cursor.getString(3), cursor.getString(4)));

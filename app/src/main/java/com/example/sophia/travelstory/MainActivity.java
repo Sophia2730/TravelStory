@@ -44,8 +44,6 @@ public class MainActivity extends Activity {
             }
         }
 
-        Plan.add(new TravelItem(R.drawable.travelstory_main_add, "EX", "123123" + "~" + "456456"));
-
         adapter = new MyAdapter(this, R.layout.travel_item, Plan);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
@@ -74,9 +72,9 @@ public class MainActivity extends Activity {
                                         //받아온 장소를 조건으로 삼아 ArrayList에서 remove해줌
                                         Plan.remove(position);
 
-                                        Cursor cursor = database.rawQuery("SELECT * FROM DOCUMENT WHERE location = '" + curName + "';", null);
+                                        Cursor cursor = database.rawQuery("SELECT * FROM TRAVEL ", null);
                                         while (cursor.moveToNext()){
-                                            database.rawQuery("DELETE FROM DOCUMENT WHERE location = '" + curName +"';", null);
+                                            database.rawQuery("DELETE FROM TRAVEL WHERE location = '" + curName +"';", null);
                                         }
                                         dbHelper.deleteTravel(curName);
                                         adapter.notifyDataSetChanged();

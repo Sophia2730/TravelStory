@@ -65,7 +65,7 @@ public class RecodeAdd extends Activity implements View.OnClickListener {
 
         //파일 이름 지정
         SimpleDateFormat timeStampFormat = new SimpleDateFormat(
-                "yyyy_MM_dd_HH_mm");
+                "yyyy_MM_dd_HH_mm_ss");
 
         mFileName = timeStampFormat.format(new Date()).toString()
                 + ".mp4";
